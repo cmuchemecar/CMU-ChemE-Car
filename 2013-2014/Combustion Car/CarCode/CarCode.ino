@@ -14,19 +14,20 @@ boolean hstate = true;
 boolean stopped = false;
 long count = 0; // total number of rotations before car stops
 float closed = 45;
-float minAngle = 90;
-float maxAngle = 103;
+float minAngle = 94;
+float maxAngle = 104;
 int clockCutoff = 1015;
 float RPM = 0;
 long target_speed = 190;
+int RPMLimite = 300; // max reasonable RPM. ignore higher values (bumping car)
 
 float throttle_init = 96;
-float throttle_movement_init = 96; //value to change to once movement starts
+float throttle_movement_init = 98; //value to change to once movement starts
 boolean haveMoved;
 
 
-double inc_rate = 1;
-double dec_rate = 0.6;
+double inc_rate = 0.5;
+double dec_rate = 0.5;
 int sensitivity = 5;
 double circum = 31.9;
 double angle;
@@ -107,7 +108,7 @@ void checkEndAndRecord()
 
 void updateThrottle()
 {
-  if ((hstate==false)&&(stopped==false))
+  if ((hstate==false)&&(stopped==false)&&RPM<=RPMLimit)
    {
      if ((RPM+sensitivity)<target_speed)
       {
