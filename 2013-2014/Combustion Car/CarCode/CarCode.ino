@@ -1,11 +1,6 @@
 #include<Servo.h>
-#include<EEPROM.h>
 #include<SD.h>
 
-/*
-manometer wires to analog input 3 and gnd
-servo.. brown=gnd, red=5v, orange=digital pin 8
-*/
 int hall = 10;
 int done = 7;
 int clockpin = 3;
@@ -16,7 +11,7 @@ long count = 0; // total number of rotations before car stops
 float closed = 45;
 float minAngle = 94;
 float maxAngle = 104;
-int clockCutoff = 900;
+int clockCutoff = 900; //initial value, is changed later
 float RPM = 0;
 long target_speed = 190;
 int RPMLimit = 300; // max reasonable RPM. ignore higher values (bumping car)
@@ -98,6 +93,7 @@ void checkEndAndRecord()
     data.println("distance traveled = " + String(distance, DEC));
     int reading = analogRead(clockpin);
     data.println("clock = " + String(reading, DEC));
+    data.println("clock cutoff = " + String(clockCutoff, DEC));
     data.close();
     Serial.println("stopping");
     throttle.write(closed);
