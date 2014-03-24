@@ -16,10 +16,11 @@ long count = 0; // total number of rotations before car stops
 float closed = 45;
 float minAngle = 94;
 float maxAngle = 104;
-int clockCutoff = 1015;
+int clockCutoff = 900;
 float RPM = 0;
 long target_speed = 190;
-int RPMLimite = 300; // max reasonable RPM. ignore higher values (bumping car)
+int RPMLimit = 300; // max reasonable RPM. ignore higher values (bumping car)
+int clockSensitivity = 30; //code now reads initial clock value and waits for changre greater than sensitivity
 
 float throttle_init = 96;
 float throttle_movement_init = 98; //value to change to once movement starts
@@ -68,7 +69,7 @@ String floatPrint(float x){
 void SDWriteLn(){
     data = SD.open(filename, FILE_WRITE);
     data.println(floatPrint(angle) + "," + floatPrint(RPM)  + "," + 
-                        String(count, DEC) + "," + millis());
+                        String(count, DEC) + "," + millis()+", "+floatPrint(analogRead(clockpin)));
     data.close();
 }
 
@@ -102,7 +103,7 @@ void checkEndAndRecord()
     throttle.write(closed);
     stopped = true;
     digitalWrite(done, HIGH); 
-    delay(10000);
+    while(1) {}; //stops throttle from resetting
   }
 }
 
@@ -167,6 +168,10 @@ void loop()
      //if we start to move, change throttle to throttle meant for movement
      if (haveMoved == false){
        haveMoved = true;
+       float clockkread1 = analogRead(clockpin); //read once
+       delay (10);
+       float clockread2 = analogRead(clockpin); //read twice
+       clockCutoff=(clockread1+clockread2)/2-clockSensitivity; //average readings and use as set value
        throttle.write(throttle_movement_init);
      }
       updateRotations();
