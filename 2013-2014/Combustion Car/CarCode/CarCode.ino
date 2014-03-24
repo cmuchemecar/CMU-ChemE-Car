@@ -15,7 +15,7 @@ int clockCutoff = 900; //initial value, is changed later
 float RPM = 0;
 long target_speed = 190;
 int RPMLimit = 300; // max reasonable RPM. ignore higher values (bumping car)
-int clockSensitivity = 30; //code now reads initial clock value and waits for changre greater than sensitivity
+int clockSensitivity = 15; //code now reads initial clock value and waits for changre greater than sensitivity
 
 float throttle_init = 96;
 float throttle_movement_init = 98; //value to change to once movement starts
@@ -127,21 +127,18 @@ void updateThrottle()
           angle-=dec_rate; 
         }
       }
-     throttle.write(angle);
-     Serial.println("Angle = " + floatPrint(angle));     
+     throttle.write(angle);  
    }
 }
 void updateRotations()
 {
   ++count; //count revolution for distance
-  Serial.println("Count = " + String(count, DEC));
 }
 
 void calculateRPM(){
   float timeHalf = endTime - startTime;
   float fullRotateTime = timeHalf / 500; // 2 / 1000, 2 because 2 hall effect sensors, 1000 milliseconds to a second
   RPM = 60 / fullRotateTime;
-  Serial.println("RPM = " + floatPrint(RPM));  
 }
 
 void loop()
@@ -164,9 +161,9 @@ void loop()
      //if we start to move, change throttle to throttle meant for movement
      if (haveMoved == false){
        haveMoved = true;
-       float clockkread1 = analogRead(clockpin); //read once
+       int clockread1 = analogRead(clockpin); //read once
        delay (10);
-       float clockread2 = analogRead(clockpin); //read twice
+       int clockread2 = analogRead(clockpin); //read twice
        clockCutoff=(clockread1+clockread2)/2-clockSensitivity; //average readings and use as set value
        throttle.write(throttle_movement_init);
      }
