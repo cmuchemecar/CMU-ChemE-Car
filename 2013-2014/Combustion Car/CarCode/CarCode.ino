@@ -87,7 +87,6 @@ void checkEndAndRecord()
 {
   if (haveMoved && (digitalRead(done)==HIGH || clockdone()))//end switch flipped or iodine end
   {
-    Serial.println(String(analogRead(clockpin), DEC) + " clockpin");
     long distance = count*circum / 2;
     data = SD.open(filename, FILE_WRITE);
     data.println("distance traveled = " + String(distance, DEC));
@@ -95,7 +94,6 @@ void checkEndAndRecord()
     data.println("clock = " + String(reading, DEC));
     data.println("clock cutoff = " + String(clockCutoff, DEC));
     data.close();
-    Serial.println("stopping");
     throttle.write(closed);
     stopped = true;
     digitalWrite(done, HIGH); 
