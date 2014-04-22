@@ -1,4 +1,5 @@
 #include <OneWire.h>
+//new comment
 
 // temperature sensor
 int DS18S20_Pin = 3; //DS18S20 Signal pin on digital 2
@@ -57,4 +58,5 @@ void loop(){
   Serial.println(floatPrint(temperature));
   delay(100);
 }
+
 
