@@ -1,25 +1,12 @@
-#include <SD.h>
 #include <OneWire.h>
-#define hallpin 2
-#define voltpin1 0
-#define ammpin1 1
-long epoch;
-long last_write_time;
-int hall_measurement;
-boolean change;
 
 // temperature sensor
 int DS18S20_Pin = 3; //DS18S20 Signal pin on digital 2
 OneWire ds(DS18S20_Pin); // on digital pin 2
 
-
 void setup(){
-  epoch = millis();
-  last_write_time = epoch;
   Serial.begin(9600); //transmission is 9600 bits per second 
 }
-
-
 String floatPrint(float x){
   int intp = x;
   int fracp = (x - intp) * 1000;
@@ -28,9 +15,6 @@ String floatPrint(float x){
   }
   return (String(intp) + "." + String(fracp));
 }
-
-
-
 
 float getTemp(){
 //returns the temperature from one DS18S20 in DEG Celsius
@@ -84,5 +68,4 @@ void loop(){
   float temperature = getTemp();
   Serial.println(floatPrint(temperature));
   delay(100);
-  
 }
