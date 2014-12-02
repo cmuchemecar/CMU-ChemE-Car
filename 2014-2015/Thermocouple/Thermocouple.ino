@@ -1,24 +1,22 @@
 /*************************************************** 
-  This is an example for the Adafruit Thermocouple Sensor w/MAX31855K
+Thermocouple code - reads thermocouple data in celsius
+  and stores it on SD card.
 
-  Designed specifically to work with the Adafruit Thermocouple Sensor
-  ----> https://www.adafruit.com/products/269
+Format of the data:
+temp_in_celsius, time_since_start
 
-  These displays use SPI to communicate, 3 pins are required to  
-  interface
-  Adafruit invests time and resources providing this open source code, 
-  please support Adafruit and open-source hardware by purchasing 
-  products from Adafruit!
+last update 11/18/14
+****************************************************/
 
-  Written by Limor Fried/Ladyada for Adafruit Industries.  
-  BSD license, all text above must be included in any redistribution
- ****************************************************/
-
+#include <SD.h>
 #include <SPI.h>
 #include <Adafruit_MAX31855.h>
 
 // Default connection is using software SPI, but comment and uncomment one of
 // the two examples below to switch between software SPI and hardware SPI:
+
+// TIME DELAY IN MILLISECONDS
+#define TIME_DELAY 30000
 
 // Example creating a thermocouple instance with software SPI on any three
 // digital IO pins.
@@ -26,34 +24,53 @@
 #define CS   4
 #define CLK  5
 Adafruit_MAX31855 thermocouple(CLK, CS, DO);
+long start_time;
 
-// Example creating a thermocouple instance with hardware SPI (Uno/Mega only)
-// on a given CS pin.
-//#define CS   10
-//Adafruit_MAX31855 thermocouple(CS);
+/* setup for SD card writing */
+char filename[] = "THERMO.TXT"; // name of file to save data to
+File data;
 
 void setup() {
   Serial.begin(9600);
   
-  Serial.println("MAX31855 test");
-  // wait for MAX chip to stabilize
-  delay(500);
+  start_time = millis();
+  
+  // setup of SD card
+  pinMode(10, OUTPUT);
+
+  SD.begin(10);
+  
+  // have a clear line separator for new runs
+  data = SD.open(filename, FILE_WRITE);
+  data.println("-----------------------------------------------------------");
+  data.close();
+
+  delay(500); // ensures proper setup of MAX31855
 }
 
-void loop() {
-  // basic readout test, just print the current temp
-   Serial.print("Internal Temp = ");
-   Serial.println(thermocouple.readInternal());
+void SDWrite(String temperature) 
+{
+  data = SD.open(filename, FILE_WRITE);
+  data.println(temperature + ", "+ String(millis() - start_time));
+  data.close();
+}
 
-   double c = thermocouple.readCelsius();
-   if (isnan(c)) {
-     Serial.println("Something wrong with thermocouple!");
-   } else {
-     Serial.print("C = "); 
-     Serial.println(c);
-   }
-   //Serial.print("F = ");
-   //Serial.println(thermocouple.readFarenheit());
+String floatPrint(float x){
+  int intp = x;
+  int fracp = (x - intp) * 1000;
+  if(fracp < 0){
+    fracp = -1 * fracp;
+  }
+  return (String(intp) + "." + String(fracp));
+}
+
+void loop() 
+{
+  float c = thermocouple.readCelsius();
+  
+    //String str = String(c)
+  SDWrite(floatPrint(c));
+ Serial.println(floatPrint(c));
  
-   delay(1000);
+  delay(TIME_DELAY);
 }
