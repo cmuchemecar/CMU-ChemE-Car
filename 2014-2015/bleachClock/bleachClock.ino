@@ -1,54 +1,56 @@
-int photoresistor = 3; //which analog pin the photoresitor reading is coming from
-int reading; //the value read from the photoresistor
-unsigned long time; //how long since the arduino turned on
-unsigned long startTime; // the starting time of the reaction
-unsigned long endTime; //the ending time of the reaction
-unsigned long runTime; //total length of time the reaction took
-boolean started; //bool for if the reaction started yet or not
-boolean endOccured; //bool for if the reaction ended yet or not
-String toStart = String("Reaction yet to start with reading ");
-String reacting = String("Reaction underway with reading ");
-String ended = String("Reaction ended with reading ");
-String timer = String("Current time since arduino turned on is ");
-String endTimeString = String("Reaction took this many seconds long ");
+#define inputpin 0
+#define thresh 300
 
-//You can change the two values below based on what values you get when actually testing 
-int reactionStart = 800; //the value the photoresistor reads before the reaction starts
-int reactionEnd = 200; //the value the photoresistor reads when the reaction ends
+unsigned long startTime;
+unsigned long endTime;
 
-int delayTime = 1000; //how long you want to delay between readings, in milliSeconds
+//This will stop the car if the average of the currently read value
+//and the previously read value is past the threshold point
+
+//Previous value read by the photoresistor
+int prevValue;
+//Average of the previous value and the current value
+//read by the photoresistor
+int avg;
 
 
-void setup(){
+void setup()
+{
   Serial.begin(9600);
-  time = millis(); //start the timer
-  started = false;
-  endOccured = false;
+  Serial.println("-------------------");
+  Serial.println("Begin run");
+  
+  //Get current system time
+  startTime = millis();
+
 }
 
 void loop()
 {
-  reading = analogRead(photoresistor);
-  if(reading > reactionStart){
-    Serial.println(toStart + reading);
+  
+  int input = analogRead(inputpin);
+  
+  avg = (input + prevValue)/2;
+  
+  if(avg > thresh)
+  {
+    Serial.print("Input value is:");
+    Serial.println(input);
   }
-  else if (reactionEnd < reading && reading < reactionStart){
-    if(!started){
-      started = true;
-      startTime = millis();
-    }
-    Serial.println(reacting + reading);
-  }
-  else if (reading <= reactionEnd && (!endOccured)){
-    endOccured = true;
+  else
+  {
     endTime = millis();
-    runTime = (endTime - startTime) / 1000;
-    Serial.println(endTimeString + runTime);
-    Serial.println(ended + reading);
+    Serial.print("Final input value is:");
+    Serial.println(input);
+    Serial.println("\n\n\n\n\n");
+    Serial.println("Car is stopped");
+    unsigned long runMillis = endTime-startTime;
+    Serial.print("Run time (in milliseconds: ");
+    Serial.println(runMillis);
+    Serial.println("-------------------");
+    while(1);
   }
-  Serial.println(timer + (millis() - time)/1000);
-
-  delay(delayTime);   
+  
+  prevValue = input;
+  
 }
-
-
