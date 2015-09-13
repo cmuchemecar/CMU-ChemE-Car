@@ -1,4 +1,6 @@
-#define inputpin 0
+#define inputpin 0 
+//input pin is the pin to attach the bleach clock sensor too
+
 #define thresh 300
 #include <Servo.h>
 unsigned long startTime;
