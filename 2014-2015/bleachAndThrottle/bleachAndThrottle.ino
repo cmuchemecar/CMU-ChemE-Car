@@ -26,13 +26,12 @@ void setup()
   Serial.println("-------------------");
   Serial.println("Begin run");
   
+  prevValue = thresh;
+  
   //Get current system time
   startTime = millis();
   throttle.attach(throttlePin);
   throttle.write(throttleInit);
-  
-  
-
 }
 
 void loop()
@@ -63,5 +62,4 @@ void loop()
   }
   
   prevValue = input;
-  
 }

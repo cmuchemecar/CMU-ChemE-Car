@@ -74,6 +74,8 @@ void checkClock()
   
   int input = analogRead(clockPin);
   clockAvg = (input + clockPrevValue) / 2;
+  
+  clockPrevValue = input;
  
  if(clockAvg > thresh)
  {
