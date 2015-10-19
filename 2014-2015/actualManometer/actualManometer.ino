@@ -1,5 +1,5 @@
 int inputPin = A0;
-int threshold = 500;
+int threshold = 300;
 int relayOut = 2;
 
 int startTime;
@@ -12,7 +12,7 @@ boolean hstate_S = true;
 boolean stopped_S = false;
 long count_S = 0; // total number of rotations before car stops
 float RPM_S = 0;
-double circum_S = 39.9;
+double circum_S = 33;
 int angle_S;
 long starting_S;
 long startTime_S;
@@ -65,8 +65,10 @@ void calculateRPM(){
   float timeHalf = endTime_S - startTime_S;
   float fullRotateTime = timeHalf / 500; // 2 / 1000, 2 because 2 hall effect sensors, 1000 milliseconds to a second
   RPM_S = 60 / fullRotateTime;
-  Serial.print("RPM = ");
-  Serial.println(RPM_S);
+  //Serial.print("RPM = ");
+  //Serial.println(RPM_S);
+  Serial.print("Speed = ");
+  Serial.println(RPM_S * circum_S / 60 / 100);
 }
 
 
@@ -77,8 +79,8 @@ void loop()
   
   
   int manoValue = analogRead(inputPin);
-  Serial.print("Input value: ");
-  Serial.println(manoValue);
+  //Serial.print("Hall: ");
+  //Serial.println(analogRead(hall_S));
   
   //BEGIN SPEED CODE
   
@@ -116,12 +118,13 @@ void loop()
     Serial.println("-------------------");
     digitalWrite(relayOut, LOW);
     while(1);
+    
   }
   else
   {
     Serial.print("Input value: ");
     Serial.println(manoValue);
   }
-  
+
   
 }
