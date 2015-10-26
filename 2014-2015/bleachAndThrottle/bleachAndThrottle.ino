@@ -1,5 +1,7 @@
 #define inputpin 0 
 //input pin is the pin to attach the bleach clock sensor too
+#define killPin 1
+//digital pin for the kill switch
 
 #define thresh 300
 #include <Servo.h>
@@ -32,6 +34,8 @@ void setup()
   startTime = millis();
   throttle.attach(throttlePin);
   throttle.write(throttleInit);
+  
+  pinMode(killPin, INPUT);
 }
 
 void loop()
@@ -41,7 +45,7 @@ void loop()
   
   avg = (input + prevValue)/2;
   
-  if(avg > thresh)
+  if(avg > thresh && (digitalRead(killPin) == LOW)))
   {
     Serial.print("Input value is:");
     Serial.println(input);
