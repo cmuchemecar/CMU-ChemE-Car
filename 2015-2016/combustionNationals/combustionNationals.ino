@@ -1,7 +1,12 @@
-#define inputpin 0 
+#define inputpin 0
 //input pin is the pin to attach the bleach clock sensor too
 #define killPin 1
 //digital pin for the kill switch
+#define hallPin 2
+//analog pin for the hall effect sensor
+#define throttlePin 8
+//pin for throttle control
+
 
 #define thresh 300
 #include <Servo.h>
@@ -18,34 +23,39 @@ int prevValue;
 int avg;
 float throttleOpen = 65;
 float throttleClose = 112;
-float throttleInit = 65; 
+float throttleInit = 65;
 float throttleCurrent = throttleInit;//hold current value for throttle
 Servo throttle;
-int throttlePin = 8; //digital
+
+boolean haveMoved;
+int initialHallMeasurement;
+
+
 void setup()
 {
   Serial.begin(9600);
   Serial.println("-------------------");
   Serial.println("Begin run");
-  
+
   prevValue = thresh;
-  
+
   //Get current system time
   startTime = millis();
   throttle.attach(throttlePin);
   throttle.write(throttleInit);
-  
+
   pinMode(killPin, INPUT);
+  pinMode(hallPin, INPUT);
+  initialHallMeasurement = analogRead(hallPin);
+  haveMoved = false;
 }
 
-void loop()
-{
-  
+void checkClock() {
   int input = analogRead(inputpin);
-  
-  avg = (input + prevValue)/2;
-  
-  if(avg > thresh && (analogRead(killPin) > 500))
+
+  avg = (input + prevValue) / 2;
+
+  if (avg > thresh && (analogRead(killPin) > 500))
   {
     Serial.print("Input value is:");
     Serial.println(input);
@@ -58,12 +68,29 @@ void loop()
     Serial.println(input);
     Serial.println("\n\n\n\n\n");
     Serial.println("Car is stopped");
-    unsigned long runMillis = endTime-startTime;
+    unsigned long runMillis = endTime - startTime;
     Serial.print("Run time (in milliseconds: ");
     Serial.println(runMillis);
     Serial.println("-------------------");
-    while(1);
+    while (1);
   }
-  
+
   prevValue = input;
+}
+
+void checkHall(){
+  if(analogRead(hallPin) != initialHallMeasurement){
+    haveMoved = true;
+  }
+}
+
+void loop()
+{
+  if(haveMoved){
+   checkClock(); 
+  } 
+  else{
+   checkHall(); 
+  }
+
 }
