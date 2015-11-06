@@ -21,9 +21,9 @@ int prevValue;
 //Average of the previous value and the current value
 //read by the photoresistor
 int avg;
-float throttleOpen = 65;
+float throttleOpen = 75;
 float throttleClose = 112;
-float throttleInit = 65;
+float throttleInit = 75;
 float throttleCurrent = throttleInit;//hold current value for throttle
 Servo throttle;
 
@@ -79,8 +79,13 @@ void checkClock() {
 }
 
 void checkHall(){
-  if(analogRead(hallPin) != initialHallMeasurement){
+  
+  if(abs(analogRead(hallPin)-initialHallMeasurement)>50){
     haveMoved = true;
+  }
+  if (analogRead(killPin)<500){
+    throttle.write(throttleClose);
+    while(1); 
   }
 }
 
