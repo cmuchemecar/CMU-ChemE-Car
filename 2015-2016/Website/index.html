@@ -1,0 +1,63 @@
+<html><head>
+<script type="text/javascript" src="jscharts.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="dist/jquery.jqplot.js"></script>
+<script type="text/javascript" src="dist/plugins/jqplot.canvasTextRenderer.js"></script>
+<script type="text/javascript" src="dist/plugins/jqplot.canvasAxisLabelRenderer.js"></script>
+<link rel="stylesheet" type="text/css" href="dist/jquery.jqplot.css" />
+</head><body>
+<!---<button onclick="makeGraph">Start Graph</button>-->
+<div id='stats' style="float: right;"></div>
+<div id='chartcontainer'>This is just a replacement in case Javascript is not available or used for SEO purposes</div>
+<div style="width: 250px; height: 200px; position: fixed; top: 800px; left: 500px; backgrund: blue; z-index:200;"></div>
+<script type="text/javascript">
+
+	//var myChart = new JSChart('chartcontainer', 'line');
+	//myChart.setDataJSON("../data.json");
+	//myChart.draw();
+
+	var myData = new Array([10, 2], [15, 0], [18, 3], [19, 6], [20, 8.5], [25, 10], [30, 9], [35, 8], [40, 5], [45, 6], [50, 2.5]);
+	var avg = 0;
+	var sum = 0;
+	var count = 0;
+	//var myData = JSON.parse("data.json");
+	var myChart = new JSChart('chartcontainer', 'line');
+	myChart.setDataArray(myData);
+	myChart.setLineColor('#8D9386');
+	myChart.setLineWidth(2);
+	myChart.setTitleColor('#7D7D7D');
+	myChart.setTitle('ChemECar');
+	myChart.setAxisColor('#9F0505');
+	myChart.setGridColor('#a4a4a4');
+	myChart.setAxisValuesColor('#333639');
+	myChart.setAxisNameColor('#333639');
+	myChart.setAxisNameX('Horizontal axis values');
+	myChart.setAxisNameY('Vertical axis');
+	////mychart.setAxisName("Actually Don't know what to put here");
+	myChart.setTextPaddingLeft(0);
+	
+	myChart.draw();
+	var xnumber = 50;
+	var time = 2000;
+	var makeGraph = setInterval(function(){
+		//var myData = JSON.parse("data.json");
+		count = count + 1;
+		xnumber = xnumber + 5;
+		var randomnumber2 = Math.floor(Math.random()*11);
+		sum = sum + randomnumber2;
+		avg =  sum/count;
+		myData.push([xnumber, randomnumber2]);
+		myData.shift();
+		myChart.setDataArray(myData);
+		myChart.draw();
+		//document.getElementById("stats").innerHTML = "<p><bold>Avg:</bold> "+avg+"</p>"
+	}, time);
+	
+	//document.getElementById("stats").innerHTML = myData
+</script>
+<script type="text/jquery">
+	$(document).ready(function(){
+	  var plot1 = $.jqplot ('chart1', [[3,7,9,1,5,3,8,2,5]]);
+	});
+</script>
+</body></html>
