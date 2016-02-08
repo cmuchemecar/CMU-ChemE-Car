@@ -20,13 +20,14 @@ void setup() {
 }
 
 void loop() {
+  int current_time = millis();
   float temperature = thermocouple.readCelsius();
   value = floatPrint(temperature) + ", "+ String(millis() - start_time);
-  if (start_time > 1000 && start == 0) {
+  if ((current_time - start_time) > 1000 && start == 0) {
     Serial.println("Start");
     start = 1;
   }
-  if (start_time >10000 && stop_flag == 0){
+  if ((current_time - start_time) >10000 && stop_flag == 0){
     Serial.println("Stop");
     stop_flag = 1;
   }
