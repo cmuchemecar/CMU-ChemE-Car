@@ -17,7 +17,8 @@ while True:
         print (msg)
         textFile.write(msg)
     if stop:
-        exit()
+        textFile.close()
+        break
 
     time.sleep(0.125)
  

@@ -12,7 +12,7 @@ String value;
 int start, stop_flag;
 
 void setup() {
-  Serial.begin(9600);  
+  Serial.begin(9600);
   start_time = millis();
   start = 0;
   stop_flag = 0;
