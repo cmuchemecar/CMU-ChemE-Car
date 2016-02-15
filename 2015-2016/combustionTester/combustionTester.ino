@@ -6,6 +6,10 @@
 //analog pin for the hall effect sensor
 #define THROTTLEPIN 8
 //pin for throttle control
+#define FANPIN 5
+//pin for fan 
+#define FANSWITCHPIN 4
+//pin for fan switch
 
 #include <Servo.h>
 
@@ -23,6 +27,9 @@ void setup()
 
   pinMode(KILLPIN, INPUT);
   pinMode(HALLPIN, INPUT);
+  pinMode(PHOTOPIN, INPUT);
+  pinMode(FANPIN, OUTPUT);
+  pinMode(FANSWITCHPIN, INPUT);
   throttle.attach(THROTTLEPIN);
   throttle.write(throttleInit);
   
@@ -45,9 +52,19 @@ void loop()
   int photo = analogRead(PHOTOPIN);
   int hall = analogRead(HALLPIN);
   int kill = digitalRead(KILLPIN);
+  int fanSwitch = digitalRead(FANSWITCHPIN);
   printSensor("Photoresistor", PHOTOPIN, photo);
   printSensor("Hall effect", HALLPIN, hall);
   printSensor("Kill switch", KILLPIN, kill);
+  printSensor("Fan switch", FANSWITCHPIN, fanSwitch);
+  
+  if (fanSwitch) {
+    digitalWrite(FANPIN, HIGH);
+  }
+  else {
+    digitalWrite(FANPIN, LOW);
+  }
+  
   Serial.println();
   delay(1000);
 }
