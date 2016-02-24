@@ -64,7 +64,5 @@ void loop()
   else {
     digitalWrite(FANPIN, LOW);
   }
-  
-  Serial.println();
   delay(1000);
 }
