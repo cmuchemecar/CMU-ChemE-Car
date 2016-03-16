@@ -1,7 +1,7 @@
 const int stoppingPin = 9;
 const int relayPin =  8;
 const int avgTime = 60;
-const int voltPin = 10;
+const int voltPin = A0;
 
 
 void setup() {
@@ -23,7 +23,7 @@ void loop(){
   }
   float avgSwitchValue = ((float)(sumSwitchValue))/
   ((float)(counter));
-  Serial.println(VoltMeasurementRaw() + " V");
+  Serial.println(VoltMeasurement() + " V");
   
   if (avgSwitchValue >= 0.7) {     
     digitalWrite(relayPin, LOW);  

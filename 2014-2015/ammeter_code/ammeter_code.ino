@@ -3,14 +3,13 @@ int ammeter = A1;
 void setup() 
 {
   Serial.begin(9600);
-  // make the pushbutton's pin an input:
 }
 
-double ReadVout(double t, double v)
+float ReadVout(float t, float v)
   {
-    double total_delay = t;
-    double value_delay = v;
-    double voltage_sum = 0.0, Vout = 0.0;
+    float total_delay = t;
+    float value_delay = v;
+    float voltage_sum = 0.0, Vout = 0.0;
     int i = 0, count = 0;
     while(i<=total_delay)
     {
@@ -23,43 +22,37 @@ double ReadVout(double t, double v)
     return Vout;
   }
   
-double ReadCurrent(double t, double v)
+float ReadCurrent(float Vout)
   {
-    double Vout = ReadVout(t,v);
-    return Vout;
-    double Vref = 1.0, Vmax = 4.0;
-    double Cmax = 2.0;
-    double ratio = (Vout-Vref)/(Vmax-Vref);
-    double current = ratio*Cmax;
-    return current;
+    float Vref = 2.85;
+    //Vmax = 0;
+    //double Cmax = 0.013;
+    //double ratio = (Vout-Vref)/(Vmax-Vref);
+    //double current = ratio*Cmax;
+    float current = (Vout - Vref)*(0.160/125.0);
+    return current*1000;
   }
   
-void printDouble( double val, unsigned int precision){
-// prints val with number of decimal places determine by precision
-// NOTE: precision is 1 followed by the number of zeros for the desired number of decimial places
-// example: printDouble( 3.1415, 100); // prints 3.14 (two decimal places)
+String floatPrint(float x){
+  int intp = x;
+  int fracp = (x - intp) * 1000;
+  if(fracp < 0){
+    fracp = -1 * fracp;
+  }
+  return (String(intp) + "." + String(fracp));
+}
 
-   Serial.print (int(val));  //prints the int part
-   Serial.print("."); // print the decimal point
-   unsigned int frac;
-   if(val >= 0)
-       frac = (val - int(val)) * precision;
-   else
-       frac = (int(val)- val ) * precision;
-   Serial.println(frac,DEC) ;
-} 
-  
-// the loop routine runs over and over again forever:
 void loop() 
 {
-  // read the input pin:
-  // print out the state of the button:
-  //Serial.print("Raw value:");
+  //Serial.print("Raw value: ");
   //Serial.println(analogRead(ammeter));
+  float Vout = ReadVout(100, 3);
+  //double Vout = analogRead(ammeter)*5./1023.;
   Serial.print("Vo(V): ");
-  printDouble(ReadVout(100,3), 1000000);
-  Serial.print("Current(A): ");
-  printDouble(ReadCurrent(100,3), 1000000);
-  delay(500);        // delay in between reads for stability
+  Serial.println(floatPrint(Vout));
+  float current = ReadCurrent(Vout);
+  Serial.print("Current(mA): ");
+  Serial.println(floatPrint(current*1000));
+  delay(500);
 }
 
