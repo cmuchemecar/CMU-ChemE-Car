@@ -3,14 +3,13 @@ int ammeter = A1;
 void setup() 
 {
   Serial.begin(9600);
-  // make the pushbutton's pin an input:
 }
 
-double ReadVout(double t, double v)
+float ReadVout(float t, float v)
   {
-    double total_delay = t;
-    double value_delay = v;
-    double voltage_sum = 0, Vout = 0;
+    float total_delay = t;
+    float value_delay = v;
+    float voltage_sum = 0.0, Vout = 0.0;
     int i = 0, count = 0;
     while(i<=total_delay)
     {
@@ -22,27 +21,38 @@ double ReadVout(double t, double v)
     Vout = voltage_sum/count;
     return Vout;
   }
-double ReadCurrent(double t, double v)
+  
+float ReadCurrent(float Vout)
   {
-    double Vout = ReadVout(t,v);
-    double Vref = 1.0, Vmax = 4.0;
-    double Cmax = 2;
-    double ratio = (Vout-Vref)/(Vmax-Vref);
-    double current = ratio*Cmax;
-    return current;
+    float Vref = 2.85;
+    //Vmax = 0;
+    //double Cmax = 0.013;
+    //double ratio = (Vout-Vref)/(Vmax-Vref);
+    //double current = ratio*Cmax;
+    float current = (Vout - Vref)*(0.160/125.0);
+    return current*1000;
   }
   
-// the loop routine runs over and over again forever:
+String floatPrint(float x){
+  int intp = x;
+  int fracp = (x - intp) * 1000;
+  if(fracp < 0){
+    fracp = -1 * fracp;
+  }
+  return (String(intp) + "." + String(fracp));
+}
+
 void loop() 
 {
-  // read the input pin:
-  // print out the state of the button:
-  //Serial.print("Raw value:");
+  //Serial.print("Raw value: ");
   //Serial.println(analogRead(ammeter));
+  float Vout = ReadVout(100, 3);
+  //double Vout = analogRead(ammeter)*5./1023.;
   Serial.print("Vo(V): ");
-  Serial.println(ReadVout(100,3));
-  Serial.print("Current(A): ");
-  Serial.println(ReadCurrent(100,3));
-  delay(500);        // delay in between reads for stability
+  Serial.println(floatPrint(Vout));
+  float current = ReadCurrent(Vout);
+  Serial.print("Current(mA): ");
+  Serial.println(floatPrint(current*1000));
+  delay(500);
 }
 
