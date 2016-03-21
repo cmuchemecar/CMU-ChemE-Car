@@ -1,13 +1,14 @@
 import serial
 import time
+import sys
 
 #ser = serial.Serial('/dev/cu.AdafruitEZ-Link4e39-SPP', 9600)
-ser = serial.Serial('COM27', 9600)
+ser = serial.Serial(str(sys.argv[1]), 9600)
 
-textFile = open("data.txt", 'w')
 start = False
 stop = False
-
+sensors = []
+files = {}
 while True:
     msg = ser.readline()
     print (msg)
@@ -17,10 +18,15 @@ while True:
     if msg.strip() == "Stop":
         stop = True
     if (start and not stop):
+    	data = msg.split(',')
+    	if data[0] not in sensors:
+    		sensors.append(data[0])
+    		files[data[0]] = open("%s.txt" % data[0], 'w')
         print (msg)
-        textFile.write(msg)
+        files[data[0]].write('%s, %s' % (data[1], data[2]))
     if stop:
-        textFile.close()
+    	for fileName in files.keys():
+        	files[fileName].close()
         break
 
     time.sleep(0.125)
