@@ -48,15 +48,6 @@ void loop(){
     sendValue("Volt", t, VoltMeasurement());
     sendValue("Current", t, floatPrint(current*1000));
     sendValue("Hall", t, (String) hallValue);
-    
-    /*
-    Serial.print(currentTime);
-    Serial.print(" s, ");
-    Serial.print(VoltMeasurement() + " V, ");
-    Serial.print(floatPrint(current*1000) + " mA, ");
-    Serial.print("hallValue = ");
-    Serial.println(hallValue);
-    */
   }
   
   if (avgSwitchValue >= 0.7) {     
