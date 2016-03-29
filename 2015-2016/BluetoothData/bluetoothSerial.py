@@ -34,8 +34,7 @@ while True:
         files[data[0].strip()].write('%s, %s\n' % (data[1].strip(), data[2].strip()))
     if stop:
         for fileName in files.keys():
-            textFile = folder + "/" + fileName
-            files[textFile].close()
+            files[fileName].close()
         break
 
     time.sleep(0.125)
