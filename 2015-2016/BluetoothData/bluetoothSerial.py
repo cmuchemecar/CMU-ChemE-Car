@@ -26,7 +26,6 @@ while True:
         stop = True
     elif (msg.strip() != "Start" and start and not stop):
         data = msg.split(',')
-        print msg
         if data[0].strip() not in files.keys():
             dateTime = time.strftime("%d_%m_%Y_%H_%M_%S")
             textFile = folder + "/" + ("%s_%s.txt" % (data[0].strip(), dateTime))
