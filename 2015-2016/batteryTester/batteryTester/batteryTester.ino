@@ -1,5 +1,5 @@
-const int stoppingPin = 9;
-const int relayPin =  8;
+const int stoppingPin = 7;
+const int relayPin =  6;
 const int avgTime = 60;
 const int voltPin = A0;
 const int ammPin = A1;
