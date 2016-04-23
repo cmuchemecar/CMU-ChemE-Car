@@ -15,7 +15,7 @@ void setup(void)
   #endif
   uint32_t currentFrequency;
     
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.println("Hello!");
   
   // Initialize the INA219.

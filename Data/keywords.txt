@@ -1,0 +1,51 @@
+#######################################
+# Syntax Coloring Map Data
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Data	KEYWORD1
+Timer	KEYWORD1
+Sensor	KEYWORD1
+VoltageSensor	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+print	KEYWORD2
+println	KEYWORD2
+beginSerial	KEYWORD2
+beginTimer	KEYWORD2
+currentTime	KEYWORD2
+timePrint	KEYWORD2
+timePrintln	KEYWORD2
+floatPrint	KEYWORD2
+floatPrintln	KEYWORD2
+
+floatToString	KEYWORD2
+dataLine	KEYWORD2
+millisToSeconds	KEYWORD2
+secondsToMillis	KEYWORD2
+scale	KEYWORD2
+
+timer	KEYWORD2
+duration	KEYWORD2
+reset	KEYWORD2
+increment	KEYWORD2
+
+sensor	KEYWORD2
+readValue	KEYWORD2
+readAnalog	KEYWORD2
+readDigital	KEYWORD2
+name	KEYWORD2
+
+voltageSensor	KEYWORD2
+
+display	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+DEFAULTBAUD	LITERAL1

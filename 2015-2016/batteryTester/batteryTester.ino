@@ -2,7 +2,7 @@ const int stoppingPin = 7;
 const int relayPin =  6;
 const int avgTime = 60;
 const int voltPin = A0;
-const int ammPin = A1;
+const int ammPin = A2;
 const int hallPin = A5;
 
 int hallValue = 0;
