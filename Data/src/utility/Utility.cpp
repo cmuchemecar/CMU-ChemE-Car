@@ -10,7 +10,7 @@ String FloatToString(float x, int dec){
 }
 
 String DataLine(String name, String time, String value) {
-  return name + ", " + time + ", " + value;
+  return name + ": " + time + ", " + value;
 }
 
 float MillisToSeconds(unsigned long ms) {

@@ -26,6 +26,7 @@ class DataClass {
 	void println(int x);
 	void print(float x, int dec = DEFAULTDEC);
 	void println(float x, int dec = DEFAULTDEC);
+	void freeze();
 	void beginSerial(int baud = DEFAULTBAUD);
 	void beginTimer();
 	float currentTime();
@@ -33,6 +34,9 @@ class DataClass {
 	void timePrintln(int dec = DEFAULTDEC);
 	void floatPrint(float x, int dec = DEFAULTDEC);
 	void floatPrintln(float x, int dec = DEFAULTDEC);
+	void startBluetooth();
+	void stopBluetooth();
+	void debugBluetooth(String str);
 	  
 	String floatToString(float x, int dec = DEFAULTDEC);
 	String dataLine(String name, String time, String value);
@@ -48,16 +52,28 @@ class DataClass {
 	  int sensorDec = DEFAULTDEC);
 	void display(Sensor sensor, Timer time, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
+	void sendBluetooth(Sensor sensor, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC);
+	void sendBluetooth(Sensor sensor, Timer time, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC); 
 	  
     VoltageSensor voltageSensor(String name, int pin, float R1, float R2);
 	void display(VoltageSensor sensor, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
 	void display(VoltageSensor sensor, Timer time, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
+	void sendBluetooth(VoltageSensor sensor, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC);
+	void sendBluetooth(VoltageSensor sensor, Timer time, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC); 
     
   private:
     void _display(Sensor sensor, int timeDec, int sensorDec, float value);
     void _display(Sensor sensor, Timer timer, int timeDec, int sensorDec,
+	  float value);
+	void _signalBluetooth();
+	void _sendBluetooth(Sensor sensor, int timeDec, int sensorDec, float value);
+    void _sendBluetooth(Sensor sensor, Timer timer, int timeDec, int sensorDec,
 	  float value);
   
     Timer _timer;

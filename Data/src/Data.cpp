@@ -41,6 +41,10 @@ void DataClass::println(float x, int dec) {
   Serial.println(FloatToString(x, dec));
 }
 
+void DataClass::freeze() {
+  while(1);
+}
+
 void DataClass::beginSerial(int baud) {
   Serial.begin(baud); 
 }
@@ -69,6 +73,25 @@ void DataClass::floatPrintln(float x, int dec) {
   Serial.println(FloatToString(x, dec));
 }
 
+void DataClass::startBluetooth() {
+  _signalBluetooth();
+  Serial.println("START");
+}
+
+void DataClass::stopBluetooth() {
+  _signalBluetooth();
+  Serial.println("STOP");
+}
+
+void DataClass::debugBluetooth(String str) {
+  _signalBluetooth();
+  Serial.println(str);
+}
+
+void DataClass::_signalBluetooth() {
+  Serial.print("BLUETOOTH: ");
+}
+
 void DataClass::_display(Sensor sensor, int timeDec, int sensorDec,
   float value) {
   Serial.println(DataLine(sensor.name,
@@ -78,6 +101,22 @@ void DataClass::_display(Sensor sensor, int timeDec, int sensorDec,
 
 void DataClass::_display(Sensor sensor, Timer timer, int timeDec,
   int sensorDec, float value) {
+  Serial.println(DataLine(sensor.name,
+    FloatToString(timer.duration(), timeDec),
+	FloatToString(value, sensorDec)));
+}
+
+void DataClass::_sendBluetooth(Sensor sensor, int timeDec, int sensorDec,
+  float value) {
+  _signalBluetooth();
+  Serial.println(DataLine(sensor.name,
+    FloatToString(currentTime(), timeDec),
+	FloatToString(value, sensorDec)));
+}
+
+void DataClass::_sendBluetooth(Sensor sensor, Timer timer, int timeDec,
+  int sensorDec, float value) {
+  _signalBluetooth();
   Serial.println(DataLine(sensor.name,
     FloatToString(timer.duration(), timeDec),
 	FloatToString(value, sensorDec)));
@@ -130,6 +169,15 @@ void DataClass::display(Sensor sensor, Timer timer, int timeDec,
   _display(sensor, timer, timeDec, sensorDec, sensor.readValue());
 }
 
+void DataClass::sendBluetooth(Sensor sensor, int timeDec, int sensorDec) {
+  _sendBluetooth(sensor, timeDec, sensorDec, sensor.readValue());
+}
+
+void DataClass::sendBluetooth(Sensor sensor, Timer timer, int timeDec,
+  int sensorDec) {
+  _sendBluetooth(sensor, timer, timeDec, sensorDec, sensor.readValue());
+}
+
 /** VoltageSensor **/
 VoltageSensor DataClass::voltageSensor(
   String name, int pin, float R1, float R2) {
@@ -143,6 +191,15 @@ void DataClass::display(VoltageSensor sensor, int timeDec, int sensorDec) {
 void DataClass::display(VoltageSensor sensor, Timer timer, int timeDec,
   int sensorDec) {
   _display(sensor, timer, timeDec, sensorDec, sensor.readValue());
+}
+
+void DataClass::sendBluetooth(VoltageSensor sensor, int timeDec, int sensorDec) {
+  _sendBluetooth(sensor, timeDec, sensorDec, sensor.readValue());
+}
+
+void DataClass::sendBluetooth(VoltageSensor sensor, Timer timer, int timeDec,
+  int sensorDec) {
+  _sendBluetooth(sensor, timer, timeDec, sensorDec, sensor.readValue());
 }
 
 

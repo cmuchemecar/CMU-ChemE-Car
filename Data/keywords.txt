@@ -16,6 +16,7 @@ VoltageSensor	KEYWORD1
 #######################################
 print	KEYWORD2
 println	KEYWORD2
+freeze	KEYWORD2
 beginSerial	KEYWORD2
 beginTimer	KEYWORD2
 currentTime	KEYWORD2
@@ -23,6 +24,9 @@ timePrint	KEYWORD2
 timePrintln	KEYWORD2
 floatPrint	KEYWORD2
 floatPrintln	KEYWORD2
+startBluetooth	KEYWORD2
+stopBluetooth	KEYWORD2
+debugBluetooth	KEYWORD2
 
 floatToString	KEYWORD2
 dataLine	KEYWORD2
@@ -44,6 +48,7 @@ name	KEYWORD2
 voltageSensor	KEYWORD2
 
 display	KEYWORD2
+sendBluetooth	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
