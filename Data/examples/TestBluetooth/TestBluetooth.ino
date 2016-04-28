@@ -1,4 +1,6 @@
 #include <Data.h>
+#include <SD.h>
+#include <SPI.h>
 
 #define EMPTYPIN A0
 #define VOLTPIN A1
@@ -15,8 +17,8 @@ void setup() {
 
 void loop() {
   
-  Data.sendBluetooth(empty);
-  Data.sendBluetooth(volt);
+  Data.sendBluetooth(&empty);
+  Data.sendBluetooth(&volt);
   
   if (Data.currentTime() > 10) {
     Data.stopBluetooth();

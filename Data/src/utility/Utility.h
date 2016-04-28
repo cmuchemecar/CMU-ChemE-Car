@@ -1,7 +1,7 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 #define DEFAULTDEC 3
 #define MAXANALOG 1023.0

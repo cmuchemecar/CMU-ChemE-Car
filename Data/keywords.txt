@@ -27,6 +27,7 @@ floatPrintln	KEYWORD2
 startBluetooth	KEYWORD2
 stopBluetooth	KEYWORD2
 debugBluetooth	KEYWORD2
+beginSD	KEYWORD2
 
 floatToString	KEYWORD2
 dataLine	KEYWORD2
@@ -44,13 +45,16 @@ readValue	KEYWORD2
 readAnalog	KEYWORD2
 readDigital	KEYWORD2
 name	KEYWORD2
+SDOpen KEYWORD2
 
 voltageSensor	KEYWORD2
 
 display	KEYWORD2
 sendBluetooth	KEYWORD2
+sendSD	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
 DEFAULTBAUD	LITERAL1
+MAXFILENAME LITERAL1

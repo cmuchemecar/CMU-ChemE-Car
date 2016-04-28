@@ -2,6 +2,7 @@
 
 Sensor::Sensor(String name, int pin) {
   this->name = name;
+  this->SDOpen = false;
   this->_pin = pin;
   pinMode(_pin, INPUT);
 }

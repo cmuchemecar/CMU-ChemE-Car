@@ -4,7 +4,6 @@
   Released into the public domain.
 */
 
-#include "Arduino.h"
 #include "Data.h"
 
 /* General Functions */
@@ -88,38 +87,29 @@ void DataClass::debugBluetooth(String str) {
   Serial.println(str);
 }
 
+void DataClass::beginSD(int pin) {
+  pinMode(pin, OUTPUT);
+  SD.begin(pin);
+}
+
+
+/* Private Functions */
 void DataClass::_signalBluetooth() {
   Serial.print("BLUETOOTH: ");
 }
 
-void DataClass::_display(Sensor sensor, int timeDec, int sensorDec,
-  float value) {
-  Serial.println(DataLine(sensor.name,
-    FloatToString(currentTime(), timeDec),
-	FloatToString(value, sensorDec)));
-}
-
-void DataClass::_display(Sensor sensor, Timer timer, int timeDec,
-  int sensorDec, float value) {
-  Serial.println(DataLine(sensor.name,
-    FloatToString(timer.duration(), timeDec),
-	FloatToString(value, sensorDec)));
-}
-
-void DataClass::_sendBluetooth(Sensor sensor, int timeDec, int sensorDec,
-  float value) {
-  _signalBluetooth();
-  Serial.println(DataLine(sensor.name,
-    FloatToString(currentTime(), timeDec),
-	FloatToString(value, sensorDec)));
-}
-
-void DataClass::_sendBluetooth(Sensor sensor, Timer timer, int timeDec,
-  int sensorDec, float value) {
-  _signalBluetooth();
-  Serial.println(DataLine(sensor.name,
-    FloatToString(timer.duration(), timeDec),
-	FloatToString(value, sensorDec)));
+String DataClass::_filenameForSD(String name) {
+  String filename;
+  if (name.length()-1 > MAXFILENAME) {
+    filename = name.substring(0, MAXFILENAME);
+  }
+  else {
+    filename = name;
+  }
+  filename += ".txt";
+  filename.toUpperCase();
+  
+  return filename;
 }
 
 
@@ -160,22 +150,70 @@ Sensor DataClass::sensor(String name, int pin) {
   return Sensor(name, pin);
 }
 
-void DataClass::display(Sensor sensor, int timeDec, int sensorDec) {
-  _display(sensor, timeDec, sensorDec, sensor.readValue());
-}
-
-void DataClass::display(Sensor sensor, Timer timer, int timeDec,
+void DataClass::display(Sensor* sensor, int timeDec,
   int sensorDec) {
-  _display(sensor, timer, timeDec, sensorDec, sensor.readValue());
+  Serial.println(DataLine(sensor->name,
+    FloatToString(currentTime(), timeDec),
+	FloatToString(sensor->readValue(), sensorDec)));
 }
 
-void DataClass::sendBluetooth(Sensor sensor, int timeDec, int sensorDec) {
-  _sendBluetooth(sensor, timeDec, sensorDec, sensor.readValue());
-}
-
-void DataClass::sendBluetooth(Sensor sensor, Timer timer, int timeDec,
+void DataClass::display(Sensor* sensor, Timer timer, int timeDec,
   int sensorDec) {
-  _sendBluetooth(sensor, timer, timeDec, sensorDec, sensor.readValue());
+  Serial.println(DataLine(sensor->name,
+    FloatToString(timer.duration(), timeDec),
+	FloatToString(sensor->readValue(), sensorDec)));
+}
+
+void DataClass::sendBluetooth(Sensor* sensor, int timeDec, int sensorDec) {
+  _signalBluetooth();
+  Serial.println(DataLine(sensor->name,
+    FloatToString(currentTime(), timeDec),
+	FloatToString(sensor->readValue(), sensorDec)));
+}
+
+void DataClass::sendBluetooth(Sensor* sensor, Timer timer, int timeDec,
+  int sensorDec) {
+  _signalBluetooth();
+  Serial.println(DataLine(sensor->name,
+    FloatToString(timer.duration(), timeDec),
+	FloatToString(sensor->readValue(), sensorDec)));
+}
+
+void DataClass::sendSD(Sensor* sensor, int timeDec, int sensorDec) {
+  String filename = _filenameForSD(sensor->name);
+  char buf[filename.length()+1];
+  filename.toCharArray(buf, filename.length()+1);
+  
+  File sensorFile = SD.open(buf, FILE_WRITE);
+  
+  if (!sensor->SDOpen) {
+    sensor->SDOpen = true;
+    sensorFile.println("---");
+	sensorFile.println("Time,Value");
+  }
+  
+  sensorFile.println(FloatToString(currentTime(), timeDec)
+    + "," + FloatToString(sensor->readValue(), sensorDec));
+  sensorFile.close();
+}
+
+void DataClass::sendSD(Sensor* sensor, Timer timer, int timeDec,
+  int sensorDec) {
+  String filename = _filenameForSD(sensor->name);
+  char buf[filename.length()+1];
+  filename.toCharArray(buf, filename.length()+1);
+  
+  File sensorFile = SD.open(buf, FILE_WRITE);
+  
+  if (!sensor->SDOpen) {
+    sensor->SDOpen = true;
+    sensorFile.println("---");
+	sensorFile.println("Time,Value");
+  }
+  
+  sensorFile.println(FloatToString(timer.duration(), timeDec)
+    + "," + FloatToString(sensor->readValue(), sensorDec));
+  sensorFile.close();
 }
 
 /** VoltageSensor **/
@@ -184,23 +222,6 @@ VoltageSensor DataClass::voltageSensor(
   return VoltageSensor(name, pin, R1, R2);
 }
 
-void DataClass::display(VoltageSensor sensor, int timeDec, int sensorDec) {
-  _display(sensor, timeDec, sensorDec, sensor.readValue());
-}
-
-void DataClass::display(VoltageSensor sensor, Timer timer, int timeDec,
-  int sensorDec) {
-  _display(sensor, timer, timeDec, sensorDec, sensor.readValue());
-}
-
-void DataClass::sendBluetooth(VoltageSensor sensor, int timeDec, int sensorDec) {
-  _sendBluetooth(sensor, timeDec, sensorDec, sensor.readValue());
-}
-
-void DataClass::sendBluetooth(VoltageSensor sensor, Timer timer, int timeDec,
-  int sensorDec) {
-  _sendBluetooth(sensor, timer, timeDec, sensorDec, sensor.readValue());
-}
 
 
 DataClass Data;

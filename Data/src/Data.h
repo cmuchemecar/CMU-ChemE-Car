@@ -7,17 +7,21 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include "Arduino.h"
+#include <Arduino.h>
+#include <SD.h>
+#include <SPI.h>
 #include "utility/Utility.h"
 #include "utility/Timer.h"
 #include "utility/Sensor.h"
 #include "utility/VoltageSensor.h"
 
 #define DEFAULTBAUD 9600
+#define MAXFILENAME 8
 
 class DataClass {
   
   public:
+    /* General Functions */
 	void print();
 	void println();
 	void print(String str);
@@ -37,44 +41,44 @@ class DataClass {
 	void startBluetooth();
 	void stopBluetooth();
 	void debugBluetooth(String str);
+	void beginSD(int pin);
 	  
+	  
+	/* Utility Wrappers */
 	String floatToString(float x, int dec = DEFAULTDEC);
 	String dataLine(String name, String time, String value);
 	float millisToSeconds(unsigned long ms);
     unsigned long secondsToMillis(float s);
     float scale(float value, float max = V5);
 	
+	
+	/* Timer */
 	Timer timer();
 	
 	
+	/* Sensors */
+
+    /** Sensor **/
     Sensor sensor(String name, int pin);
-	void display(Sensor sensor, int timeDec = DEFAULTDEC,
+	void display(Sensor* sensor, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
-	void display(Sensor sensor, Timer time, int timeDec = DEFAULTDEC,
+	void display(Sensor* sensor, Timer time, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
-	void sendBluetooth(Sensor sensor, int timeDec = DEFAULTDEC,
+	void sendBluetooth(Sensor* sensor, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
-	void sendBluetooth(Sensor sensor, Timer time, int timeDec = DEFAULTDEC,
+	void sendBluetooth(Sensor* sensor, Timer time, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC); 
+	void sendSD(Sensor* sensor, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC);
+	void sendSD(Sensor* sensor, Timer time, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC);
 	  
+	/** VoltageSensor **/
     VoltageSensor voltageSensor(String name, int pin, float R1, float R2);
-	void display(VoltageSensor sensor, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void display(VoltageSensor sensor, Timer time, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void sendBluetooth(VoltageSensor sensor, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void sendBluetooth(VoltageSensor sensor, Timer time, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC); 
     
   private:
-    void _display(Sensor sensor, int timeDec, int sensorDec, float value);
-    void _display(Sensor sensor, Timer timer, int timeDec, int sensorDec,
-	  float value);
 	void _signalBluetooth();
-	void _sendBluetooth(Sensor sensor, int timeDec, int sensorDec, float value);
-    void _sendBluetooth(Sensor sensor, Timer timer, int timeDec, int sensorDec,
-	  float value);
+	String _filenameForSD(String name);
   
     Timer _timer;
 };

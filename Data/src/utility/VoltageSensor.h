@@ -1,7 +1,7 @@
 #ifndef VOLTAGESENSOR_H
 #define VOLTAGESENSOR_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "Sensor.h"
 
 class VoltageSensor : public Sensor {

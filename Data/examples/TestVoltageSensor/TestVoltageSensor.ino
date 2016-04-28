@@ -1,4 +1,6 @@
 #include <Data.h>
+#include <SD.h>
+#include <SPI.h>
 
 #define VOLTPIN A0
 
@@ -10,7 +12,7 @@ void setup() {
 }
 
 void loop() {
-  Data.display(volt);
+  Data.display(&volt);
   
   delay(1234);
 }

@@ -1,7 +1,7 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "Utility.h"
 #include "Timer.h"
 
@@ -16,6 +16,7 @@ class Sensor {
 	void println(int dec = DEFAULTDEC);
 	
 	String name;
+	bool SDOpen;
 
   private:
 	int _pin;
