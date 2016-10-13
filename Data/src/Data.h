@@ -14,6 +14,7 @@
 #include "utility/Timer.h"
 #include "utility/Sensor.h"
 #include "utility/VoltageSensor.h"
+#include "utility/TemperatureSensor.h"
 
 #define DEFAULTBAUD 9600
 #define MAXFILENAME 8
@@ -75,6 +76,9 @@ class DataClass {
 	  
 	/** VoltageSensor **/
     VoltageSensor voltageSensor(String name, int pin, float R1, float R2);
+	
+	/** Temperature Sensor **/
+    TemperatureSensor temperatureSensor(String name, int pin, float R1, float R2);
     
   private:
 	void _signalBluetooth();
