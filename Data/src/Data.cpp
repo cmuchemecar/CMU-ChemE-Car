@@ -222,6 +222,12 @@ VoltageSensor DataClass::voltageSensor(
   return VoltageSensor(name, pin, R1, R2);
 }
 
+/** TemperatureSensor **/
+TemperatureSensor DataClass::temperatureSensor(
+  String name, int pin, float R1, float R2) {
+  return TemperatureSensor(name, pin, R1, R2);
+}
+
 
 
 DataClass Data;
