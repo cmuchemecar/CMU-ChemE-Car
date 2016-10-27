@@ -15,12 +15,13 @@
 #include "utility/Sensor.h"
 #include "utility/VoltageSensor.h"
 #include "utility/TemperatureSensor.h"
+#include "utility/HallEffectSensor.h"
 
 #define DEFAULTBAUD 9600
 #define MAXFILENAME 8
 
 class DataClass {
-  
+
   public:
     /* General Functions */
 	void print();
@@ -43,20 +44,20 @@ class DataClass {
 	void stopBluetooth();
 	void debugBluetooth(String str);
 	void beginSD(int pin);
-	  
-	  
+
+
 	/* Utility Wrappers */
 	String floatToString(float x, int dec = DEFAULTDEC);
 	String dataLine(String name, String time, String value);
 	float millisToSeconds(unsigned long ms);
     unsigned long secondsToMillis(float s);
     float scale(float value, float max = V5);
-	
-	
+
+
 	/* Timer */
 	Timer timer();
-	
-	
+
+
 	/* Sensors */
 
     /** Sensor **/
@@ -68,22 +69,25 @@ class DataClass {
 	void sendBluetooth(Sensor* sensor, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
 	void sendBluetooth(Sensor* sensor, Timer time, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC); 
+	  int sensorDec = DEFAULTDEC);
 	void sendSD(Sensor* sensor, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
 	void sendSD(Sensor* sensor, Timer time, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
-	  
+
 	/** VoltageSensor **/
     VoltageSensor voltageSensor(String name, int pin, float R1, float R2);
-	
+
 	/** Temperature Sensor **/
     TemperatureSensor temperatureSensor(String name, int pin, float R1, float R2);
-    
+
+    /* HallEffectSensor */
+    HallEffectSensor hallEffectSensor(String name, byte pin);
+
   private:
 	void _signalBluetooth();
 	String _filenameForSD(String name);
-  
+
     Timer _timer;
 };
 

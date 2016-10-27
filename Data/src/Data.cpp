@@ -45,7 +45,7 @@ void DataClass::freeze() {
 }
 
 void DataClass::beginSerial(int baud) {
-  Serial.begin(baud); 
+  Serial.begin(baud);
 }
 
 void DataClass::beginTimer() {
@@ -108,7 +108,7 @@ String DataClass::_filenameForSD(String name) {
   }
   filename += ".txt";
   filename.toUpperCase();
-  
+
   return filename;
 }
 
@@ -183,15 +183,15 @@ void DataClass::sendSD(Sensor* sensor, int timeDec, int sensorDec) {
   String filename = _filenameForSD(sensor->name);
   char buf[filename.length()+1];
   filename.toCharArray(buf, filename.length()+1);
-  
+
   File sensorFile = SD.open(buf, FILE_WRITE);
-  
+
   if (!sensor->SDOpen) {
     sensor->SDOpen = true;
     sensorFile.println("---");
 	sensorFile.println("Time,Value");
   }
-  
+
   sensorFile.println(FloatToString(currentTime(), timeDec)
     + "," + FloatToString(sensor->readValue(), sensorDec));
   sensorFile.close();
@@ -202,15 +202,15 @@ void DataClass::sendSD(Sensor* sensor, Timer timer, int timeDec,
   String filename = _filenameForSD(sensor->name);
   char buf[filename.length()+1];
   filename.toCharArray(buf, filename.length()+1);
-  
+
   File sensorFile = SD.open(buf, FILE_WRITE);
-  
+
   if (!sensor->SDOpen) {
     sensor->SDOpen = true;
     sensorFile.println("---");
 	sensorFile.println("Time,Value");
   }
-  
+
   sensorFile.println(FloatToString(timer.duration(), timeDec)
     + "," + FloatToString(sensor->readValue(), sensorDec));
   sensorFile.close();
@@ -228,11 +228,13 @@ TemperatureSensor DataClass::temperatureSensor(
   return TemperatureSensor(name, pin, R1, R2);
 }
 
+/* HallEffectSensor */
+HallEffectSensor DataClass::hallEffectSensor(
+    String name, byte pin) {
+    return HallEffectSensor(name, pin);
+}
+
 
 
 DataClass Data;
-
-
-
-
 
