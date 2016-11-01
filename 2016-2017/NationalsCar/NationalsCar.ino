@@ -47,7 +47,7 @@ void setup() {
 
 void loop() {
   
-  if (!killswitch.readDigital()) {
+  if (!killswitch.readDigital() && Data.currentTime() > 1.0) {
     digitalWrite(RELAYPIN, LOW);
     Data.stopBluetooth();
     Data.freeze();
