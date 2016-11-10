@@ -7,6 +7,6 @@ HallEffectSensor::HallEffectSensor(String name, byte pin): Sensor(name, pin) {
     pinMode(_pin, INPUT);
 }
 
-float HallEffectSensor::magnetNear() {
+bool HallEffectSensor::magnetNear() {
     return digitalRead(_pin);
 }

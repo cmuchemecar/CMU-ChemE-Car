@@ -79,7 +79,7 @@ class DataClass {
     VoltageSensor voltageSensor(String name, int pin, float R1, float R2);
 
 	/** Temperature Sensor **/
-    TemperatureSensor temperatureSensor(String name, int pin, float R1, float R2);
+    TemperatureSensor temperatureSensor(String name, int pin, int mode);
 
     /* HallEffectSensor */
     HallEffectSensor hallEffectSensor(String name, byte pin);

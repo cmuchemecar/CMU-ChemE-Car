@@ -2,7 +2,7 @@
 #define PHOTORESISTOR_H
 
 #include <Arduino.h>
-#Include "Sensor.h"
+#include "Sensor.h"
 
 class Photoresistor : public Sensor {
     public:

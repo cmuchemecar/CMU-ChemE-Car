@@ -11,6 +11,6 @@ class HallEffectSensor : public Sensor {
 
     private:
         byte _pin;
-}
+};
 
 #endif

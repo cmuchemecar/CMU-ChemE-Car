@@ -6,7 +6,7 @@
 #define DEFAULTDEC 3
 #define MAXANALOG 1023.0
 #define V5 5.0
-#define V3.3 3.3
+#define V3_3 3.3
 
 String FloatToString(float x, int dec = DEFAULTDEC);
 String DataLine(String name, String time, String value);
