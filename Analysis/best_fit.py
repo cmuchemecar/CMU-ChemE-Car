@@ -46,6 +46,7 @@ class BestFit():
     self.findRSquared()
 
     plt.scatter(self.x_data,self.y_data)
+    plt.title(self.title)
     plt.xlabel(self.x_title)
     plt.ylabel(self.y_title)
     plt.show()
