@@ -3,9 +3,11 @@
 #include <SD.h>
 
 //TMP36 Pin
-#define tempPin A5
+#define TEMPPIN A5
 //Analog pin of photoresistor
-#define photoresistor A0
+#define PHOTOPIN A0
+//SD Setup
+#define SDPIN 10
 
 //Threshold at which we say that the value has increased
 //past the starting value
@@ -24,32 +26,24 @@ unsigned long startTime;
 
 int totalMax = 0;
 
-//SD Setup
-#define SDPIN 10
-#define MODE_C 0
-#define MODE_F 1
-
-
-TemperatureSensor temp_sensor = Data.temperatureSensor("Temperature_Sensor_1", tempPin, MODE_C);
+Sensor raw_data = Data.sensor("Raw_Data", PHOTOPIN);
+PhotoSensor photo_sensor = Data.photoSensor("Photo_Sensor", PHOTOPIN, 660000);
+TemperatureSensor temp_sensor = Data.temperatureSensor("Temperature_Sensor", TEMPPIN, MODE_C);
 
 void setup() {
-  pinMode(tempPin, INPUT);
-  Serial.begin(9600);
   startTime = millis();
-  startValue = analogRead(photoresistor);
+  startValue = analogRead(PHOTOPIN);
   hasIncreased = false;
 
   //Set Up SD Card
   Data.beginSerial();
   Data.beginSD(SDPIN);
   Data.beginTimer();
-
-  
 }
 
 void loop() {
-  int reading = analogRead(photoresistor);
-  Serial.println(reading);
+  int reading = analogRead(PHOTOPIN);
+
   if (reading > totalMax) {
     totalMax = reading;
   }
@@ -68,8 +62,11 @@ void loop() {
     }
   }
 
-  //Temperature Reading
-  Data.display(&temp_sensor);
+  Data.sendSD(&raw_data);
+  Data.sendSD(&photo_sensor);
   Data.sendSD(&temp_sensor);
+  Data.display(&raw_data);
+  Data.display(&photo_sensor);
+  Data.display(&temp_sensor);
 }
 

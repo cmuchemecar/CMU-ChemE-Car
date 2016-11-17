@@ -1,7 +1,7 @@
 #include "VoltageSensor.h"
 
-VoltageSensor::VoltageSensor(String name, int pin, float R1,
-  float R2) : Sensor(name, pin) {
+VoltageSensor::VoltageSensor(String name, int pin, int R1,
+  int R2) : Sensor(name, pin) {
   this->name = name;
   this->SDOpen = false;
   this->_pin = pin;
