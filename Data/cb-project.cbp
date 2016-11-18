@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="cb-project" />
+		<Option pch_mode="2" />
+		<Option compiler="avr-gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="cb-project" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="0" />
+				<Option compiler="avr-gcc" />
+				<Compiler>
+					<Add directory="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino" />
+					<Add directory="/opt/arduino-1.6.12/hardware/tools/avr/avr/include" />
+					<Add directory="/opt/arduino-1.6.12/hardware/arduino/avr/variants/standard" />
+					<Add directory="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src" />
+					<Add directory="/opt/arduino-1.6.12/libraries/SD/src" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="cb-project" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="avr-gcc" />
+			</Target>
+		</Build>
+		<Unit filename="src/Data.cpp" />
+		<Unit filename="src/Data.h" />
+		<Unit filename="src/utility/HallEffectSensor.cpp" />
+		<Unit filename="src/utility/HallEffectSensor.h" />
+		<Unit filename="src/utility/Photoresistor.cpp" />
+		<Unit filename="src/utility/Photoresistor.h" />
+		<Unit filename="src/utility/Sensor.cpp" />
+		<Unit filename="src/utility/Sensor.h" />
+		<Unit filename="src/utility/TemperatureSensor.cpp" />
+		<Unit filename="src/utility/TemperatureSensor.h" />
+		<Unit filename="src/utility/Timer.cpp" />
+		<Unit filename="src/utility/Timer.h" />
+		<Unit filename="src/utility/Utility.cpp" />
+		<Unit filename="src/utility/Utility.h" />
+		<Unit filename="src/utility/VoltageSensor.cpp" />
+		<Unit filename="src/utility/VoltageSensor.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
