@@ -224,14 +224,20 @@ VoltageSensor DataClass::voltageSensor(
 
 /** TemperatureSensor **/
 TemperatureSensor DataClass::temperatureSensor(
-  String name, int pin, float R1, float R2) {
-  return TemperatureSensor(name, pin, R1, R2);
+  String name, int pin, int mode) {
+  return TemperatureSensor(name, pin, mode);
 }
 
-/* HallEffectSensor */
+/** HallEffectSensor **/
 HallEffectSensor DataClass::hallEffectSensor(
     String name, byte pin) {
     return HallEffectSensor(name, pin);
+}
+
+/** PhotoSensor **/
+PhotoSensor DataClass::photoSensor(
+    String name, int pin, int R) {
+	return PhotoSensor(name, pin, R);
 }
 
 

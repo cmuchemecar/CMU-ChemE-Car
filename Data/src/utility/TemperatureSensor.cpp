@@ -1,16 +1,32 @@
 #include "TemperatureSensor.h"
-
-TemperatureSensor::TemperatureSensor(String name, int pin, float R1,
-  float R2) : Sensor(name, pin) {
+#define MODE_C 0
+#define MODE_F 1
+TemperatureSensor::TemperatureSensor(String name, int pin, int mode) : Sensor(name, pin) {
   this->name = name;
   this->SDOpen = false;
   this->_pin = pin;
-  this->_R1 = R1;
-  this->_R2 = R2;
+  this->_mode = MODE_C;
   pinMode(_pin, INPUT);
 }
 
 float TemperatureSensor::readValue() {
-  return (Scale(analogRead(_pin)) * (_R2/(_R1+_R2)))*100 - 37;
+	int raw_sensor_value = analogRead(_pin);
+	//Scaling to 3.3 Volts
+	float voltage = (raw_sensor_value * 5.0) / 1024.0;
+	//10 mV / degree with 500 mV offset
+	float temperatureC = (voltage - 0.5) * 100;
+	if(_mode == MODE_C)
+	{
+		return temperatureC;
+	}
+	else
+	{
+		return (temperatureC * 9.0 / 5.0) + 32.0;
+	}
+}
+
+int TemperatureSensor::setMode(int mode)
+{
+	_mode = mode;
 }
 

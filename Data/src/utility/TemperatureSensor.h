@@ -3,17 +3,19 @@
 
 #include <Arduino.h>
 #include "Sensor.h"
+#define MODE_C 0
+#define MODE_F 1
 
 class TemperatureSensor : public Sensor {
 
   public:
-    TemperatureSensor(String name, int pin, float R1, float R2);
+    TemperatureSensor(String name, int pin, int mode = MODE_C);
     float readValue();
+    int setMode(int mode);
 	
   private:
 	int _pin;
-	float _R1;
-	float _R2;
+	int _mode;
 };
 
 #endif

@@ -16,6 +16,7 @@
 #include "utility/VoltageSensor.h"
 #include "utility/TemperatureSensor.h"
 #include "utility/HallEffectSensor.h"
+#include "utility/PhotoSensor.h"
 
 #define DEFAULTBAUD 9600
 #define MAXFILENAME 8
@@ -78,11 +79,14 @@ class DataClass {
 	/** VoltageSensor **/
     VoltageSensor voltageSensor(String name, int pin, float R1, float R2);
 
-	/** Temperature Sensor **/
-    TemperatureSensor temperatureSensor(String name, int pin, float R1, float R2);
+	/** TemperatureSensor **/
+    TemperatureSensor temperatureSensor(String name, int pin, int mode);
 
-    /* HallEffectSensor */
+    /** HallEffectSensor **/
     HallEffectSensor hallEffectSensor(String name, byte pin);
+	
+	/** PhotoSensor **/
+	PhotoSensor photoSensor(String name, int pin, int R);
 
   private:
 	void _signalBluetooth();
