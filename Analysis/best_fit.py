@@ -71,8 +71,10 @@ class BestFit():
       fig_string = eqn_string + '\n$R^2$ = ' + str(r_sq)
       plt.gca().annotate(fig_string, xy=(0.05, 0.95), xycoords='axes fraction', fontsize=14, horizontalalignment='left', verticalalignment='top')
 
+    plt.savefig(self.title + '.png')
 
     plt.show()
+
 
   def addCSV(self):
     """
@@ -94,10 +96,6 @@ class BestFit():
       # Store data for plot
       self.x_data.append(float(row[0]))
       self.y_data.append(float(row[1]))
-
-
-  def savePlot(self):
-    pass
 
 
 if __name__ == "__main__":
