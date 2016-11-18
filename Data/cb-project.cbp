@@ -3,6 +3,9 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="cb-project" />
+		<Option platforms="Unix;" />
+		<Option makefile_is_custom="1" />
+		<Option execution_dir="src" />
 		<Option pch_mode="2" />
 		<Option compiler="avr-gcc" />
 		<Build>
@@ -11,13 +14,6 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="0" />
 				<Option compiler="avr-gcc" />
-				<Compiler>
-					<Add directory="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino" />
-					<Add directory="/opt/arduino-1.6.12/hardware/tools/avr/avr/include" />
-					<Add directory="/opt/arduino-1.6.12/hardware/arduino/avr/variants/standard" />
-					<Add directory="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src" />
-					<Add directory="/opt/arduino-1.6.12/libraries/SD/src" />
-				</Compiler>
 			</Target>
 			<Target title="Release">
 				<Option output="cb-project" prefix_auto="1" extension_auto="1" />
@@ -25,13 +21,28 @@
 				<Option type="0" />
 				<Option compiler="avr-gcc" />
 			</Target>
+			<Target title="all">
+				<Option platforms="Unix;" />
+				<Option output="cb-project" prefix_auto="1" extension_auto="1" />
+				<Option type="0" />
+				<Option compiler="avr-gcc" />
+			</Target>
 		</Build>
+		<Unit filename=".gitignore" />
 		<Unit filename="src/Data.cpp" />
 		<Unit filename="src/Data.h" />
 		<Unit filename="src/utility/HallEffectSensor.cpp" />
 		<Unit filename="src/utility/HallEffectSensor.h" />
-		<Unit filename="src/utility/Photoresistor.cpp" />
-		<Unit filename="src/utility/Photoresistor.h" />
+		<Unit filename="src/utility/PhotoSensor.cpp" />
+		<Unit filename="src/utility/PhotoSensor.h" />
+		<Unit filename="src/utility/Photoresistor.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="src/utility/Photoresistor.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="src/utility/Sensor.cpp" />
 		<Unit filename="src/utility/Sensor.h" />
 		<Unit filename="src/utility/TemperatureSensor.cpp" />
