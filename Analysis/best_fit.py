@@ -11,6 +11,9 @@ R^2 value.
 
 Requires scipy, matplotlib
 
+Usage currently saves figures to the current directory, using the plot title
+as the save name. Saves in .png format.
+
 Usage:
 python best_fit.py csv_filename.csv 'Plot Title'
 
