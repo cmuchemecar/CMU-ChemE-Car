@@ -1,6 +1,6 @@
 #include "PhotoSensor.h"
 
-PhotoSensor::PhotoSensor(String name, int pin, int R)
+PhotoSensor::PhotoSensor(String name, int pin, float R)
     : Sensor(name, pin) {
     this->name = name;
     this->SDOpen = false;

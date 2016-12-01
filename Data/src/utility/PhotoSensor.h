@@ -6,12 +6,12 @@
 
 class PhotoSensor : public Sensor {
     public:
-        PhotoSensor(String name, int pin, int R);
+        PhotoSensor(String name, int pin, float R);
         float readValue();
 
     private:
         int _pin;
-        int _R;
+        float _R;
 };
 
 #endif

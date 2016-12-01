@@ -1,8 +1,8 @@
 #include "Utility.h"
 
 String FloatToString(float x, int dec){
-  int intp = x;
-  int fracp = (x - intp) * pow(10, dec);
+  long intp = x;
+  long fracp = (x - intp) * pow(10, dec);
   if(fracp < 0){
     fracp = -1 * fracp;
   }

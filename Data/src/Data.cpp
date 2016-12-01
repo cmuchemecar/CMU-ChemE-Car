@@ -236,7 +236,7 @@ HallEffectSensor DataClass::hallEffectSensor(
 
 /** PhotoSensor **/
 PhotoSensor DataClass::photoSensor(
-    String name, int pin, int R) {
+    String name, int pin, float R) {
 	return PhotoSensor(name, pin, R);
 }
 

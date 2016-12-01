@@ -86,7 +86,7 @@ class DataClass {
     HallEffectSensor hallEffectSensor(String name, byte pin);
 	
 	/** PhotoSensor **/
-	PhotoSensor photoSensor(String name, int pin, int R);
+	PhotoSensor photoSensor(String name, int pin, float R);
 
   private:
 	void _signalBluetooth();

@@ -11,7 +11,7 @@
 
 //Threshold at which we say that the value has increased
 //past the starting value
-#define increasingThreshold 5
+#define increasingThreshold 100
 
 
 //The first reading of the luminol clock
@@ -68,5 +68,6 @@ void loop() {
   Data.display(&raw_data);
   Data.display(&photo_sensor);
   Data.display(&temp_sensor);
+  Data.println();
 }
 
