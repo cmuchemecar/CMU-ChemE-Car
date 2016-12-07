@@ -9,6 +9,10 @@ app = Flask(__name__)
 def index():
 	return render_template('index.html')
 
+@app.route('/jumbotron')
+def jumbotron():
+	return render_template('jumbotron.html')
+
 @app.route('/_dataJson')
 def dataJson():
 	data = loadData()
