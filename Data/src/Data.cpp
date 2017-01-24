@@ -64,13 +64,6 @@ void DataClass::timePrintln(int dec) {
   _timer.println(dec);
 }
 
-void DataClass::floatPrint(float x, int dec) {
-  Serial.print(FloatToString(x, dec));
-}
-
-void DataClass::floatPrintln(float x, int dec) {
-  Serial.println(FloatToString(x, dec));
-}
 
 void DataClass::startBluetooth() {
   _signalBluetooth();

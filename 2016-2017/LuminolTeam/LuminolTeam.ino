@@ -12,7 +12,7 @@
 //Threshold at which we say that the value has increased
 //past the starting value
 #define increasingThreshold 500
-#define decreasingThreshold 300
+#define decreasingThreshold 350
 
 //The first reading of the luminol clock
 int startValue;
@@ -48,7 +48,6 @@ void setup() {
 
 
 float computeAverage(float* points, int reading) {
-  Data.println("compute average");
   float average = ((points[3] + points[4] + points[5]) / ((float) numPoints/2)) - 
     ((points[0] + points[1] + points[2]) / ((float) numPoints/2));
 
@@ -89,7 +88,7 @@ void loop() {
     startValue = analogRead(PHOTOPIN);
     hasIncreased = true;
     startTime = millis();
-    Serial.println("increased");
+    Serial.println("increased################################################################");
   }
   if(hasIncreased == true) {
     if(reading < startValue - decreasingThreshold) {

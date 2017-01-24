@@ -39,8 +39,6 @@ class DataClass {
 	float currentTime();
 	void timePrint(int dec = DEFAULTDEC);
 	void timePrintln(int dec = DEFAULTDEC);
-	void floatPrint(float x, int dec = DEFAULTDEC);
-	void floatPrintln(float x, int dec = DEFAULTDEC);
 	void startBluetooth();
 	void stopBluetooth();
 	void debugBluetooth(String str);
