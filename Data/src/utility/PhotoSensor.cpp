@@ -10,5 +10,5 @@ PhotoSensor::PhotoSensor(String name, int pin, float R)
 }
 
 float PhotoSensor::readValue() {
-    return ((MAXANALOG / analogRead(_pin)) - 1) * _R;
+    return ((MAXANALOG / analogRead(_pin)) * _R) - _R;
 }

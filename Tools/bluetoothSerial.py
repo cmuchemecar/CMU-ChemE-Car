@@ -50,5 +50,5 @@ while True:
 			files[fileName].close()
 		break
 
-	time.sleep(0.125)
+	#time.sleep(0.125)
  
