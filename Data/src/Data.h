@@ -60,7 +60,7 @@ class DataClass {
 	/* Sensors */
 
     /** Sensor **/
-    Sensor sensor(String name, int pin);
+    Sensor sensor(String name, byte pin);
 	void display(Sensor* sensor, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
 	void display(Sensor* sensor, Timer time, int timeDec = DEFAULTDEC,
@@ -75,16 +75,16 @@ class DataClass {
 	  int sensorDec = DEFAULTDEC);
 
 	/** VoltageSensor **/
-    VoltageSensor voltageSensor(String name, int pin, float R1, float R2);
+    VoltageSensor voltageSensor(String name, byte pin, float R1, float R2);
 
 	/** TemperatureSensor **/
-    TemperatureSensor temperatureSensor(String name, int pin, int mode);
+    TemperatureSensor temperatureSensor(String name, byte pin, int mode);
 
     /** HallEffectSensor **/
     HallEffectSensor hallEffectSensor(String name, byte pin);
 	
 	/** PhotoSensor **/
-	PhotoSensor photoSensor(String name, int pin, float R);
+	PhotoSensor photoSensor(String name, byte pin, float R);
 
   private:
 	void _signalBluetooth();

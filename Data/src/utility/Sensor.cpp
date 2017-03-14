@@ -1,6 +1,6 @@
 #include "Sensor.h"
 
-Sensor::Sensor(String name, int pin) {
+Sensor::Sensor(String name, byte pin) {
   this->name = name;
   this->SDOpen = false;
   this->_pin = pin;

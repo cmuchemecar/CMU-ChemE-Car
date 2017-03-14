@@ -1,6 +1,6 @@
 #include "PhotoSensor.h"
 
-PhotoSensor::PhotoSensor(String name, int pin, float R)
+PhotoSensor::PhotoSensor(String name, byte pin, float R)
     : Sensor(name, pin) {
     this->name = name;
     this->SDOpen = false;
@@ -10,5 +10,12 @@ PhotoSensor::PhotoSensor(String name, int pin, float R)
 }
 
 float PhotoSensor::readValue() {
-    return ((MAXANALOG / analogRead(_pin)) * _R) - _R;
+    float resistance = ((MAXANALOG / analogRead(_pin)) * _R) - _R;
+
+    if (resistance < 0) {
+    	return 0;
+    }
+    else {
+    	return resistance;
+    }
 }

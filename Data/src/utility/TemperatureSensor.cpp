@@ -1,7 +1,6 @@
 #include "TemperatureSensor.h"
-#define MODE_C 0
-#define MODE_F 1
-TemperatureSensor::TemperatureSensor(String name, int pin, int mode) : Sensor(name, pin) {
+
+TemperatureSensor::TemperatureSensor(String name, byte pin, int mode) : Sensor(name, pin) {
   this->name = name;
   this->SDOpen = false;
   this->_pin = pin;

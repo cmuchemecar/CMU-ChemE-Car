@@ -5,6 +5,7 @@
 */
 
 #include "Data.h"
+DataClass Data;
 
 /* General Functions */
 
@@ -139,7 +140,7 @@ Timer DataClass::timer() {
 /* Sensors */
 
 /** Sensor **/
-Sensor DataClass::sensor(String name, int pin) {
+Sensor DataClass::sensor(String name, byte pin) {
   return Sensor(name, pin);
 }
 
@@ -211,13 +212,13 @@ void DataClass::sendSD(Sensor* sensor, Timer timer, int timeDec,
 
 /** VoltageSensor **/
 VoltageSensor DataClass::voltageSensor(
-  String name, int pin, float R1, float R2) {
+  String name, byte pin, float R1, float R2) {
   return VoltageSensor(name, pin, R1, R2);
 }
 
 /** TemperatureSensor **/
 TemperatureSensor DataClass::temperatureSensor(
-  String name, int pin, int mode) {
+  String name, byte pin, int mode) {
   return TemperatureSensor(name, pin, mode);
 }
 
@@ -229,11 +230,9 @@ HallEffectSensor DataClass::hallEffectSensor(
 
 /** PhotoSensor **/
 PhotoSensor DataClass::photoSensor(
-    String name, int pin, float R) {
+    String name, byte pin, float R) {
 	return PhotoSensor(name, pin, R);
 }
 
 
-
-DataClass Data;
 

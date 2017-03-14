@@ -4,7 +4,7 @@
 
 #define VOLTPIN A0
 
-VoltageSensor volt = Data.voltageSensor("Volt", VOLTPIN, 1000, 3000);
+VoltageSensor volt = Data.voltageSensor("Volt", VOLTPIN, 3300, 1000);
 
 void setup() {
   Data.beginSerial();

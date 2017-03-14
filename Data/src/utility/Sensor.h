@@ -8,7 +8,7 @@
 class Sensor {
 
   public:
-    Sensor(String name, int pin);
+    Sensor(String name, byte pin);
     virtual float readValue();
 	int readAnalog();
 	int readDigital();
@@ -19,7 +19,7 @@ class Sensor {
 	bool SDOpen;
 
   private:
-	int _pin;
+	byte _pin;
 };
 
 #endif

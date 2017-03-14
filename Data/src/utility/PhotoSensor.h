@@ -5,12 +5,13 @@
 #include "Sensor.h"
 
 class PhotoSensor : public Sensor {
+	
     public:
-        PhotoSensor(String name, int pin, float R);
+        PhotoSensor(String name, byte pin, float R);
         float readValue();
 
     private:
-        int _pin;
+        byte _pin;
         float _R;
 };
 

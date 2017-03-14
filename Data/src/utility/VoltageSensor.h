@@ -7,11 +7,11 @@
 class VoltageSensor : public Sensor {
 
   public:
-    VoltageSensor(String name, int pin, float R1, float R2);
+    VoltageSensor(String name, byte pin, float R1, float R2);
     float readValue();
 	
   private:
-	int _pin;
+	byte _pin;
 	float _R1;
 	float _R2;
 };

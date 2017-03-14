@@ -5,13 +5,17 @@
 #include "Sensor.h"
 
 class HallEffectSensor : public Sensor {
+
     public:
         HallEffectSensor(String name, byte pin);
-        bool magnetNear();
         float readValue();
+        bool touched();
+        bool on();
+        void reset();
 
     private:
         byte _pin;
+        bool _touched;
 };
 
 #endif
