@@ -16,6 +16,7 @@
 #include "utility/VoltageSensor.h"
 #include "utility/TemperatureSensor.h"
 #include "utility/HallEffectSensor.h"
+#include "utility/WheelSensor.h"
 #include "utility/PhotoSensor.h"
 
 #define DEFAULTBAUD 9600
@@ -82,6 +83,10 @@ class DataClass {
 
     /** HallEffectSensor **/
     HallEffectSensor hallEffectSensor(String name, byte pin);
+
+    /** WheelSensor **/
+    WheelSensor wheelSensor(String name, byte pin,
+      float wheelRadius, int numMagnets);
 	
 	/** PhotoSensor **/
 	PhotoSensor photoSensor(String name, byte pin, float R);

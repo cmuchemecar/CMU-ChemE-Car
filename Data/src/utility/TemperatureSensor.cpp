@@ -24,7 +24,7 @@ float TemperatureSensor::readValue() {
 	}
 }
 
-int TemperatureSensor::setMode(int mode)
+void TemperatureSensor::setMode(int mode)
 {
 	_mode = mode;
 }

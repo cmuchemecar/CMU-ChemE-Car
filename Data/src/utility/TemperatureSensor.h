@@ -12,7 +12,7 @@ class TemperatureSensor : public Sensor {
   public:
     TemperatureSensor(String name, byte pin, int mode = MODE_C);
     float readValue();
-    int setMode(int mode);
+    void setMode(int mode);
 	
   private:
 	byte _pin;

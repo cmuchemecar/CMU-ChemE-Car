@@ -228,11 +228,16 @@ HallEffectSensor DataClass::hallEffectSensor(
     return HallEffectSensor(name, pin);
 }
 
+/** WheelSensor **/
+WheelSensor DataClass::wheelSensor(
+    String name, byte pin, float wheelRadius, int numMagnets) {
+    return WheelSensor(name, pin, wheelRadius, numMagnets); 
+}
+
 /** PhotoSensor **/
 PhotoSensor DataClass::photoSensor(
     String name, byte pin, float R) {
 	return PhotoSensor(name, pin, R);
 }
-
 
 

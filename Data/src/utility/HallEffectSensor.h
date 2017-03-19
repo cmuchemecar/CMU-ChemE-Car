@@ -14,7 +14,7 @@ class HallEffectSensor : public Sensor {
         void reset();
 
     private:
-        byte _pin;
+    	byte _pin;
         bool _touched;
 };
 
