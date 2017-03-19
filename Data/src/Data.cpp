@@ -240,4 +240,10 @@ PhotoSensor DataClass::photoSensor(
 	return PhotoSensor(name, pin, R);
 }
 
+/** SwitchSensor **/
+SwitchSensor DataClass::switchSensor(
+    String name, byte pin) {
+  return SwitchSensor(name, pin);
+}
+
 

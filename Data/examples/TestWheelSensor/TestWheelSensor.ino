@@ -28,15 +28,15 @@ void loop() {
   }
 
   Data.display(&wheel);
+  Data.println();
 
   if (wheel.readValue() > 100) {
-    Data.println();
     Data.println("Distance has exceeded 100");
     Data.println("Resetting the wheel");
+    Data.println();
     wheel.reset();
   }
-
-  Data.println();
+  
   delay(1234);
 }
 

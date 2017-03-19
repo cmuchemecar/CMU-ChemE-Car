@@ -18,6 +18,7 @@
 #include "utility/HallEffectSensor.h"
 #include "utility/WheelSensor.h"
 #include "utility/PhotoSensor.h"
+#include "utility/SwitchSensor.h"
 
 #define DEFAULTBAUD 9600
 #define MAXFILENAME 8
@@ -90,6 +91,9 @@ class DataClass {
 	
 	/** PhotoSensor **/
 	PhotoSensor photoSensor(String name, byte pin, float R);
+
+	/** SwitchSensor **/
+	SwitchSensor switchSensor(String name, byte pin);
 
   private:
 	void _signalBluetooth();
