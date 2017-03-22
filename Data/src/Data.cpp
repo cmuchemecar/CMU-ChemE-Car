@@ -247,3 +247,11 @@ SwitchSensor DataClass::switchSensor(
 }
 
 
+/* Actuator */
+
+/** Actuator **/
+/*Actuator DataClass::actuator(
+  String name, byte pin, Timer time) {
+  return Actuator(name, pin, time);
+}
+*/

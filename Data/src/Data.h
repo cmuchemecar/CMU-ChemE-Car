@@ -19,6 +19,7 @@
 #include "utility/WheelSensor.h"
 #include "utility/PhotoSensor.h"
 #include "utility/SwitchSensor.h"
+#include "utility/Actuator.h"
 
 #define DEFAULTBAUD 9600
 #define MAXFILENAME 8
@@ -94,6 +95,16 @@ class DataClass {
 
 	/** SwitchSensor **/
 	SwitchSensor switchSensor(String name, byte pin);
+
+
+	/* Actuators */
+
+	/** Actuator **/
+	//Actuator actuator(String name, byte pin, Timer time = _timer);
+	//void display(Actuator* actuator);
+
+	/** TransistorActuator **/
+	//TransistorActuator transistorActuator()
 
   private:
 	void _signalBluetooth();
