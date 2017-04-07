@@ -7,11 +7,10 @@
 class PhotoSensor : public Sensor {
 	
     public:
-        PhotoSensor(String name, byte pin, float R);
+        PhotoSensor(String name, byte pin, Timer timer, float R);
         float readValue();
 
     private:
-        byte _pin;
         float _R;
 };
 

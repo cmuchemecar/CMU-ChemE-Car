@@ -1,9 +1,11 @@
 #include "HallEffectSensor.h"
 
-HallEffectSensor::HallEffectSensor(String name, byte pin): Sensor(name, pin) {
-    this->name = name;
-    this->SDOpen = false;
+HallEffectSensor::HallEffectSensor(String name, byte pin, Timer timer)
+    : Sensor(name, pin, timer) {
+    this->_name = name;
     this->_pin = pin;
+    this->_timer = timer;
+    this->_SDOpen = false;
     this->_touched = false;
     pinMode(_pin, INPUT);
 }

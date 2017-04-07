@@ -1,9 +1,10 @@
 #include "Sensor.h"
 
-Sensor::Sensor(String name, byte pin) {
-  this->name = name;
-  this->SDOpen = false;
+Sensor::Sensor(String name, byte pin, Timer timer) {
+  this->_name = name;
   this->_pin = pin;
+  this->_timer = timer;
+  this->_SDOpen = false;
   pinMode(_pin, INPUT);
 }
 

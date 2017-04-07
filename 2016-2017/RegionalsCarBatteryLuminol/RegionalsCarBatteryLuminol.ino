@@ -17,11 +17,11 @@ bool hasIncreased;
 //Max raw value seen
 int totalMax;
 
-Sensor raw_data = Data.sensor("Raw_Data", PHOTOPIN);
-PhotoSensor photo_sensor = Data.photoSensor("Photo_Sensor", PHOTOPIN, 660000);
-SwitchSensor control_switch = Data.switchSensor("Switch_Sensor", SWITCHPIN);
-
 Timer clockTimer = Timer();
+
+Sensor raw_data = Data.sensor("Raw_Data", PHOTOPIN, clockTimer);
+PhotoSensor photo_sensor = Data.photoSensor("Photo_Sensor", PHOTOPIN, clockTimer, 660000);
+SwitchSensor control_switch = Data.switchSensor("Switch_Sensor", SWITCHPIN);
 
 int numPoints = 6;
 float points[6];
@@ -40,6 +40,8 @@ void setup() {
   Data.beginTimer();
 
   Data.startBluetooth();
+
+  Data.debugBluetooth("Starting program");
 
   pinMode(TRANSPIN, OUTPUT);
 }
@@ -116,11 +118,11 @@ void loop() {
   }
 
 
-  Data.sendBluetooth(&raw_data, clockTimer);
-  Data.sendBluetooth(&photo_sensor, clockTimer);
+  Data.sendBluetooth(&raw_data);
+  Data.sendBluetooth(&photo_sensor);
 
-  Data.display(&raw_data, clockTimer);
-  Data.display(&photo_sensor, clockTimer);
+  Data.display(&raw_data);
+  Data.display(&photo_sensor);
   Data.println();
 
 }

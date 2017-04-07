@@ -7,21 +7,22 @@
 
 class Actuator {
 
-  /*public:
-    Actuator(String name, byte pin, Timer time);
+  friend class DataClass;
+
+  public:
+    Actuator(String name, byte pin, Timer timer);
 	void writeAnalog(int value);
 	void writeDigital(int value);
 	void print();
 	void println();
-	
-	String name;
-	bool SDOpen;
 
   private:
+  	String _name;
 	byte _pin;
 	Timer _timer;
-	long _time;
-	int _value;*/
+	bool _SDOpen;
+	float _time;
+	float _value;
 };
 
 #endif

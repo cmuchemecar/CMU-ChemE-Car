@@ -129,6 +129,72 @@ float DataClass::scale(float value, float max) {
   return Scale(value, max);
 }
 
+void DataClass::display(Sensor* sensor, int timeDec,
+  int sensorDec) {
+  Serial.println(DataLine(sensor->_name,
+    FloatToString(sensor->_timer.duration(), timeDec),
+    FloatToString(sensor->readValue(), sensorDec)));
+}
+
+void DataClass::display(Actuator* actuator, int timeDec,
+  int actuatorDec) {
+  Serial.println(DataLine(actuator->_name,
+    FloatToString(actuator->_time, timeDec),
+    FloatToString(actuator->_value, actuatorDec)));
+}
+
+void DataClass::sendBluetooth(Sensor* sensor, int timeDec, int sensorDec) {
+  _signalBluetooth();
+  Serial.println(DataLine(sensor->_name,
+    FloatToString(sensor->_timer.duration(), timeDec),
+    FloatToString(sensor->readValue(), sensorDec)));
+}
+
+void DataClass::sendBluetooth(Actuator* actuator, int timeDec,
+  int actuatorDec) {
+  _signalBluetooth();
+  Serial.println(DataLine(actuator->_name,
+    FloatToString(actuator->_time, timeDec),
+    FloatToString(actuator->_value, actuatorDec)));
+}
+
+void DataClass::sendSD(Sensor* sensor, int timeDec, int sensorDec) {
+  String filename = _filenameForSD(sensor->_name);
+  char buf[filename.length()+1];
+  filename.toCharArray(buf, filename.length()+1);
+
+  File sensorFile = SD.open(buf, FILE_WRITE);
+
+  if (!sensor->_SDOpen) {
+    sensor->_SDOpen = true;
+    sensorFile.println("---");
+  sensorFile.println("Time,Value");
+  }
+
+  sensorFile.println(FloatToString(sensor->_timer.duration(), timeDec)
+    + "," + FloatToString(sensor->readValue(), sensorDec));
+  sensorFile.close();
+}
+
+void DataClass::sendSD(Actuator* actuator, int timeDec,
+  int actuatorDec) {
+  String filename = _filenameForSD(actuator->_name);
+  char buf[filename.length()+1];
+  filename.toCharArray(buf, filename.length()+1);
+
+  File actuatorFile = SD.open(buf, FILE_WRITE);
+
+  if (!actuator->_SDOpen) {
+    actuator->_SDOpen = true;
+    actuatorFile.println("---");
+  actuatorFile.println("Time,Value");
+  }
+
+  actuatorFile.println(FloatToString(actuator->_time, timeDec)
+    + "," + FloatToString(actuator->_value, actuatorDec));
+  actuatorFile.close();
+}
+
 
 /* Timer */
 
@@ -141,117 +207,89 @@ Timer DataClass::timer() {
 
 /** Sensor **/
 Sensor DataClass::sensor(String name, byte pin) {
-  return Sensor(name, pin);
+  return Sensor(name, pin, _timer);
 }
 
-void DataClass::display(Sensor* sensor, int timeDec,
-  int sensorDec) {
-  Serial.println(DataLine(sensor->name,
-    FloatToString(currentTime(), timeDec),
-	FloatToString(sensor->readValue(), sensorDec)));
-}
-
-void DataClass::display(Sensor* sensor, Timer timer, int timeDec,
-  int sensorDec) {
-  Serial.println(DataLine(sensor->name,
-    FloatToString(timer.duration(), timeDec),
-	FloatToString(sensor->readValue(), sensorDec)));
-}
-
-void DataClass::sendBluetooth(Sensor* sensor, int timeDec, int sensorDec) {
-  _signalBluetooth();
-  Serial.println(DataLine(sensor->name,
-    FloatToString(currentTime(), timeDec),
-	FloatToString(sensor->readValue(), sensorDec)));
-}
-
-void DataClass::sendBluetooth(Sensor* sensor, Timer timer, int timeDec,
-  int sensorDec) {
-  _signalBluetooth();
-  Serial.println(DataLine(sensor->name,
-    FloatToString(timer.duration(), timeDec),
-	FloatToString(sensor->readValue(), sensorDec)));
-}
-
-void DataClass::sendSD(Sensor* sensor, int timeDec, int sensorDec) {
-  String filename = _filenameForSD(sensor->name);
-  char buf[filename.length()+1];
-  filename.toCharArray(buf, filename.length()+1);
-
-  File sensorFile = SD.open(buf, FILE_WRITE);
-
-  if (!sensor->SDOpen) {
-    sensor->SDOpen = true;
-    sensorFile.println("---");
-	sensorFile.println("Time,Value");
-  }
-
-  sensorFile.println(FloatToString(currentTime(), timeDec)
-    + "," + FloatToString(sensor->readValue(), sensorDec));
-  sensorFile.close();
-}
-
-void DataClass::sendSD(Sensor* sensor, Timer timer, int timeDec,
-  int sensorDec) {
-  String filename = _filenameForSD(sensor->name);
-  char buf[filename.length()+1];
-  filename.toCharArray(buf, filename.length()+1);
-
-  File sensorFile = SD.open(buf, FILE_WRITE);
-
-  if (!sensor->SDOpen) {
-    sensor->SDOpen = true;
-    sensorFile.println("---");
-	sensorFile.println("Time,Value");
-  }
-
-  sensorFile.println(FloatToString(timer.duration(), timeDec)
-    + "," + FloatToString(sensor->readValue(), sensorDec));
-  sensorFile.close();
+Sensor DataClass::sensor(String name, byte pin, Timer time) {
+  return Sensor(name, pin, time);
 }
 
 /** VoltageSensor **/
 VoltageSensor DataClass::voltageSensor(
   String name, byte pin, float R1, float R2) {
-  return VoltageSensor(name, pin, R1, R2);
+  return VoltageSensor(name, pin, _timer, R1, R2);
+}
+
+VoltageSensor DataClass::voltageSensor(
+  String name, byte pin, Timer time, float R1, float R2) {
+  return VoltageSensor(name, pin, time, R1, R2);
 }
 
 /** TemperatureSensor **/
 TemperatureSensor DataClass::temperatureSensor(
   String name, byte pin, int mode) {
-  return TemperatureSensor(name, pin, mode);
+  return TemperatureSensor(name, pin, _timer, mode);
+}
+
+TemperatureSensor DataClass::temperatureSensor(
+  String name, byte pin, Timer time, int mode) {
+  return TemperatureSensor(name, pin, time, mode);
 }
 
 /** HallEffectSensor **/
 HallEffectSensor DataClass::hallEffectSensor(
     String name, byte pin) {
-    return HallEffectSensor(name, pin);
+    return HallEffectSensor(name, pin, _timer);
+}
+
+HallEffectSensor DataClass::hallEffectSensor(
+    String name, byte pin, Timer time) {
+    return HallEffectSensor(name, pin, time);
 }
 
 /** WheelSensor **/
 WheelSensor DataClass::wheelSensor(
     String name, byte pin, float wheelRadius, int numMagnets) {
-    return WheelSensor(name, pin, wheelRadius, numMagnets); 
+    return WheelSensor(name, pin, _timer, wheelRadius, numMagnets); 
+}
+
+WheelSensor DataClass::wheelSensor(
+    String name, byte pin, Timer time, float wheelRadius, int numMagnets) {
+    return WheelSensor(name, pin, time, wheelRadius, numMagnets); 
 }
 
 /** PhotoSensor **/
 PhotoSensor DataClass::photoSensor(
     String name, byte pin, float R) {
-	return PhotoSensor(name, pin, R);
+	return PhotoSensor(name, pin, _timer, R);
+}
+
+PhotoSensor DataClass::photoSensor(
+    String name, byte pin, Timer time, float R) {
+  return PhotoSensor(name, pin, time, R);
 }
 
 /** SwitchSensor **/
 SwitchSensor DataClass::switchSensor(
     String name, byte pin) {
-  return SwitchSensor(name, pin);
+  return SwitchSensor(name, pin, _timer);
 }
 
+SwitchSensor DataClass::switchSensor(
+    String name, byte pin, Timer time) {
+  return SwitchSensor(name, pin, time);
+}
 
 /* Actuator */
 
 /** Actuator **/
-/*Actuator DataClass::actuator(
+Actuator DataClass::actuator(
+  String name, byte pin) {
+  return Actuator(name, pin, _timer);
+}
+
+Actuator DataClass::actuator(
   String name, byte pin, Timer time) {
   return Actuator(name, pin, time);
 }
-*/
+

@@ -1,31 +1,29 @@
 #include "Actuator.h"
 
-/*Actuator::Actuator(String name, byte pin, Timer time) {
-  this->name = name;
-  this->SDOpen = false;
+Actuator::Actuator(String name, byte pin, Timer timer) {
+  this->_name = name;
   this->_pin = pin;
-  this->_Timer = time;
+  this->_timer = timer;
+  this->_SDOpen = false;
   pinMode(_pin, OUTPUT);
 }
 
-int Sensor::writeAnalog(int value) {
+void Actuator::writeAnalog(int value) {
   analogWrite(_pin, value);
-  _value = value;
+  _value = (float) value;
   _time = _timer.duration();
 }
 
-int Sensor::writeDigital(int value) {
+void Actuator::writeDigital(int value) {
   digitalWrite(_pin, value);
-  _value = value;
+  _value = (float) value;
   _time = _timer.duration();
 }
 
-void Sensor::print() {
+void Actuator::print() {
   Serial.print(_value);
 }
 
-void Sensor::println() {
+void Actuator::println() {
   Serial.println(_value);
 }
-
-*/

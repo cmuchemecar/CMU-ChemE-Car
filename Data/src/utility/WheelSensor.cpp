@@ -3,11 +3,12 @@
 WheelSensor* _wheelSensor;
 void _handleInterrupt();
 
-WheelSensor::WheelSensor(String name, byte pin, float wheelRadius,
-  int numMagnets): Sensor(name, pin) {
-    this->name = name;
-    this->SDOpen = false;
+WheelSensor::WheelSensor(String name, byte pin, Timer timer,
+    float wheelRadius, int numMagnets) : Sensor(name, pin, timer) {
+    this->_name = name;
     this->_pin = pin;
+    this->_timer = timer;
+    this->_SDOpen = false;
     this->_wheelRadius = wheelRadius;
     this-> _numMagnets = numMagnets;
     this->_passed = false;

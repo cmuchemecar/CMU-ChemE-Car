@@ -7,14 +7,13 @@
 class HallEffectSensor : public Sensor {
 
     public:
-        HallEffectSensor(String name, byte pin);
+        HallEffectSensor(String name, byte pin, Timer timer);
         float readValue();
         bool touched();
         bool on();
         void reset();
 
     private:
-    	byte _pin;
         bool _touched;
 };
 

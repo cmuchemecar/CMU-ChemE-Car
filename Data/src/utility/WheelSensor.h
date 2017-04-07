@@ -8,7 +8,8 @@
 class WheelSensor : public Sensor {
 
     public:
-        WheelSensor(String name, byte pin, float wheelRadius, int numMagnets);
+        WheelSensor(String name, byte pin, Timer timer,
+            float wheelRadius, int numMagnets);
         float readValue();
         bool passed();
         int ticks();
@@ -19,7 +20,6 @@ class WheelSensor : public Sensor {
         volatile int _ticks;
 
     private:
-        byte _pin;
         float _wheelRadius;
         int _numMagnets;
 };

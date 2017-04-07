@@ -1,9 +1,11 @@
 #include "TemperatureSensor.h"
 
-TemperatureSensor::TemperatureSensor(String name, byte pin, int mode) : Sensor(name, pin) {
-  this->name = name;
-  this->SDOpen = false;
+TemperatureSensor::TemperatureSensor(String name, byte pin, Timer timer,
+  int mode) : Sensor(name, pin, timer) {
+  this->_name = name;
   this->_pin = pin;
+  this->_timer = timer;
+  this->_SDOpen = false;
   this->_mode = MODE_C;
   pinMode(_pin, INPUT);
 }

@@ -1,9 +1,11 @@
 #include "SwitchSensor.h"
 
-SwitchSensor::SwitchSensor(String name, byte pin): Sensor(name, pin) {
-    this->name = name;
-    this->SDOpen = false;
+SwitchSensor::SwitchSensor(String name, byte pin, Timer timer) 
+    : Sensor(name, pin, timer) {
+    this->_name = name;
     this->_pin = pin;
+    this->_timer = timer;
+    this->_SDOpen = false;
     pinMode(_pin, INPUT);
 }
 

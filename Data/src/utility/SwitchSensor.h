@@ -7,14 +7,12 @@
 class SwitchSensor : public Sensor {
 
     public:
-        SwitchSensor(String name, byte pin);
+        SwitchSensor(String name, byte pin, Timer timer);
         float readValue();
         bool on();
         void waitForOn();
         void waitForOff();
 
-    private:
-    	byte _pin;
 };
 
 #endif

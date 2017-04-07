@@ -47,6 +47,19 @@ class DataClass {
 	void debugBluetooth(String str);
 	void beginSD(int pin);
 
+	void display(Sensor* sensor, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC);
+	void display(Actuator* actuator, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC);
+	void sendBluetooth(Sensor* sensor, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC);
+	void sendBluetooth(Actuator* actuator, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC);
+	void sendSD(Sensor* sensor, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC);
+	void sendSD(Actuator* actuator, int timeDec = DEFAULTDEC,
+	  int sensorDec = DEFAULTDEC);
+
 
 	/* Utility Wrappers */
 	String floatToString(float x, int dec = DEFAULTDEC);
@@ -64,44 +77,43 @@ class DataClass {
 
     /** Sensor **/
     Sensor sensor(String name, byte pin);
-	void display(Sensor* sensor, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void display(Sensor* sensor, Timer time, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void sendBluetooth(Sensor* sensor, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void sendBluetooth(Sensor* sensor, Timer time, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void sendSD(Sensor* sensor, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void sendSD(Sensor* sensor, Timer time, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
+    Sensor sensor(String name, byte pin, Timer time);
 
 	/** VoltageSensor **/
     VoltageSensor voltageSensor(String name, byte pin, float R1, float R2);
+    VoltageSensor voltageSensor(String name, byte pin, Timer time,
+    	float R1, float R2);
 
 	/** TemperatureSensor **/
     TemperatureSensor temperatureSensor(String name, byte pin, int mode);
+    TemperatureSensor temperatureSensor(String name, byte pin, Timer time,
+    	int mode);
 
     /** HallEffectSensor **/
     HallEffectSensor hallEffectSensor(String name, byte pin);
+    HallEffectSensor hallEffectSensor(String name, byte pin, Timer time);
 
     /** WheelSensor **/
     WheelSensor wheelSensor(String name, byte pin,
-      float wheelRadius, int numMagnets);
+        float wheelRadius, int numMagnets);
+    WheelSensor wheelSensor(String name, byte pin, Timer time,
+        float wheelRadius, int numMagnets);
 	
 	/** PhotoSensor **/
 	PhotoSensor photoSensor(String name, byte pin, float R);
+	PhotoSensor photoSensor(String name, byte pin, Timer time, float R);
 
 	/** SwitchSensor **/
 	SwitchSensor switchSensor(String name, byte pin);
+	SwitchSensor switchSensor(String name, byte pin, Timer time);
+
 
 
 	/* Actuators */
 
 	/** Actuator **/
-	//Actuator actuator(String name, byte pin, Timer time = _timer);
-	//void display(Actuator* actuator);
+	Actuator actuator(String name, byte pin);
+	Actuator actuator(String name, byte pin, Timer time);
 
 	/** TransistorActuator **/
 	//TransistorActuator transistorActuator()
