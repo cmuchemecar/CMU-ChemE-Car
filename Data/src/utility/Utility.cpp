@@ -1,6 +1,10 @@
 #include "Utility.h"
 
 String FloatToString(float x, int dec){
+  if (dec < 0) {
+    dec = DEFAULTDEC;
+  }
+
   long intp = x;
   long fracp = (x - intp) * pow(10, dec);
   if(fracp < 0){

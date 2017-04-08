@@ -1,7 +1,7 @@
 #include "Timer.h"
 
 Timer::Timer() {
-  _startTime = MillisToSeconds(millis());
+  this->_startTime = MillisToSeconds(millis());
 }
 
 float Timer::duration() {

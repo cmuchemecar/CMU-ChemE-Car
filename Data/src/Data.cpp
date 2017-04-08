@@ -143,6 +143,13 @@ void DataClass::display(Actuator* actuator, int timeDec,
     FloatToString(actuator->_value, actuatorDec)));
 }
 
+void DataClass::display(Measurement* measurement, int timeDec,
+  int measurementDec) {
+  Serial.println(DataLine(measurement->_name,
+    FloatToString(measurement->_time, timeDec),
+    FloatToString(measurement->_value, measurementDec)));
+}
+
 void DataClass::sendBluetooth(Sensor* sensor, int timeDec, int sensorDec) {
   _signalBluetooth();
   Serial.println(DataLine(sensor->_name,
@@ -156,6 +163,14 @@ void DataClass::sendBluetooth(Actuator* actuator, int timeDec,
   Serial.println(DataLine(actuator->_name,
     FloatToString(actuator->_time, timeDec),
     FloatToString(actuator->_value, actuatorDec)));
+}
+
+void DataClass::sendBluetooth(Measurement* measurement, int timeDec,
+  int measurementDec) {
+  _signalBluetooth();
+  Serial.println(DataLine(measurement->_name,
+    FloatToString(measurement->_time, timeDec),
+    FloatToString(measurement->_value, measurementDec)));
 }
 
 void DataClass::sendSD(Sensor* sensor, int timeDec, int sensorDec) {
@@ -195,11 +210,45 @@ void DataClass::sendSD(Actuator* actuator, int timeDec,
   actuatorFile.close();
 }
 
+void DataClass::sendSD(Measurement* measurement, int timeDec,
+  int measurementDec) {
+  String filename = _filenameForSD(measurement->_name);
+  char buf[filename.length()+1];
+  filename.toCharArray(buf, filename.length()+1);
+
+  File measurementFile = SD.open(buf, FILE_WRITE);
+
+  if (!measurement->_SDOpen) {
+    measurement->_SDOpen = true;
+    measurementFile.println("---");
+    measurementFile.println("Time,Value");
+  }
+
+  measurementFile.println(FloatToString(measurement->_time, timeDec)
+    + "," + FloatToString(measurement->_value, measurementDec));
+  measurementFile.close();
+}
+
 
 /* Timer */
 
 Timer DataClass::timer() {
   return Timer();
+}
+
+/* Series */
+Series DataClass::series(int size) {
+  return Series(size);
+}
+
+Measurement DataClass::measurement(String name,
+  float (*measureValue)()) {
+  return Measurement(name, measureValue, _timer);
+}
+
+Measurement DataClass::measurement(String name,
+  float (*measureValue)(), Timer time) {
+  return Measurement(name, measureValue, time);
 }
 
 
@@ -291,5 +340,16 @@ Actuator DataClass::actuator(
 Actuator DataClass::actuator(
   String name, byte pin, Timer time) {
   return Actuator(name, pin, time);
+}
+
+/** MotorActuator **/
+MotorActuator DataClass::motorActuator(
+  String name, byte pin) {
+  return MotorActuator(name, pin, _timer);
+}
+
+MotorActuator DataClass::motorActuator(
+  String name, byte pin, Timer time) {
+  return MotorActuator(name, pin, time);
 }
 

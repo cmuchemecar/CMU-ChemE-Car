@@ -9,6 +9,8 @@ class Actuator {
 
   friend class DataClass;
 
+  friend class MotorActuator;
+
   public:
     Actuator(String name, byte pin, Timer timer);
 	void writeAnalog(int value);

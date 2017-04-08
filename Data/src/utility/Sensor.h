@@ -19,16 +19,16 @@ class Sensor {
   public:
     Sensor(String name, byte pin, Timer timer);
     virtual float readValue();
-	int readAnalog();
-	int readDigital();
+	  int readAnalog();
+	  int readDigital();
     void print(int dec = DEFAULTDEC);
-	void println(int dec = DEFAULTDEC);
+	  void println(int dec = DEFAULTDEC);
 
   private:
   	String _name;
-	byte _pin;
-	Timer _timer;
-	bool _SDOpen;
+	  byte _pin;
+	  Timer _timer;
+	  bool _SDOpen;
 };
 
 #endif

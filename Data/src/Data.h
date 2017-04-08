@@ -12,6 +12,8 @@
 #include <SPI.h>
 #include "utility/Utility.h"
 #include "utility/Timer.h"
+#include "utility/Series.h"
+#include "utility/Measurement.h"
 #include "utility/Sensor.h"
 #include "utility/VoltageSensor.h"
 #include "utility/TemperatureSensor.h"
@@ -20,6 +22,7 @@
 #include "utility/PhotoSensor.h"
 #include "utility/SwitchSensor.h"
 #include "utility/Actuator.h"
+#include "utility/MotorActuator.h"
 
 #define DEFAULTBAUD 9600
 #define MAXFILENAME 8
@@ -51,14 +54,20 @@ class DataClass {
 	  int sensorDec = DEFAULTDEC);
 	void display(Actuator* actuator, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
+	void display(Measurement* measurement, int timeDec = DEFAULTDEC,
+	  int measurementDec = DEFAULTDEC);
 	void sendBluetooth(Sensor* sensor, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
 	void sendBluetooth(Actuator* actuator, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
+	void sendBluetooth(Measurement* measurement, int timeDec = DEFAULTDEC,
+	  int measurementDec = DEFAULTDEC);
 	void sendSD(Sensor* sensor, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
 	void sendSD(Actuator* actuator, int timeDec = DEFAULTDEC,
 	  int sensorDec = DEFAULTDEC);
+	void sendSD(Measurement* measurement, int timeDec = DEFAULTDEC,
+	  int measurementDec = DEFAULTDEC);
 
 
 	/* Utility Wrappers */
@@ -71,6 +80,13 @@ class DataClass {
 
 	/* Timer */
 	Timer timer();
+
+	/* Series */
+	Series series(int size);
+
+	/* Measurement */
+	Measurement measurement(String name, float (*measureValue)());
+	Measurement measurement(String name, float (*measureValue)(), Timer time);
 
 
 	/* Sensors */
@@ -115,8 +131,9 @@ class DataClass {
 	Actuator actuator(String name, byte pin);
 	Actuator actuator(String name, byte pin, Timer time);
 
-	/** TransistorActuator **/
-	//TransistorActuator transistorActuator()
+	/** MotorActuator **/
+	MotorActuator motorActuator(String name, byte pin);
+	MotorActuator motorActuator(String name, byte pin, Timer time);
 
   private:
 	void _signalBluetooth();
