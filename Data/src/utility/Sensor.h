@@ -21,6 +21,7 @@ class Sensor {
     virtual float readValue();
 	  int readAnalog();
 	  int readDigital();
+    void reset();
     void print(int dec = DEFAULTDEC);
 	  void println(int dec = DEFAULTDEC);
 

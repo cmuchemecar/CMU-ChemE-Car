@@ -48,6 +48,8 @@ class DataClass {
 	void startBluetooth();
 	void stopBluetooth();
 	void debugBluetooth(String str);
+	void debugBluetooth(int x);
+	void debugBluetooth(float x, int dec = DEFAULTDEC);
 	void beginSD(int pin);
 
 	void display(Sensor* sensor, int timeDec = DEFAULTDEC,

@@ -37,6 +37,7 @@ int WheelSensor::revolutions() {
 }
 
 void WheelSensor::reset() {
+    _SDOpen = false;
     _passed = false;
     _ticks = 0;
 }

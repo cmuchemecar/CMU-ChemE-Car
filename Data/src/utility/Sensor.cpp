@@ -20,6 +20,10 @@ int Sensor::readDigital() {
   return digitalRead(_pin);
 }
 
+void Sensor::reset() {
+  _SDOpen = false;
+}
+
 void Sensor::print(int dec) {
   Serial.print(FloatToString(readValue(), dec));
 }

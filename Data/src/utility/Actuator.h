@@ -13,8 +13,10 @@ class Actuator {
 
   public:
     Actuator(String name, byte pin, Timer timer);
+    float getValue();
 	void writeAnalog(int value);
 	void writeDigital(int value);
+	void reset();
 	void print();
 	void println();
 

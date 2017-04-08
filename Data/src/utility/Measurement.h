@@ -11,7 +11,10 @@ class Measurement {
 
   public:
     Measurement(String name, float (*measureValue)(), Timer timer);
+    float getValue();
     void update();
+    bool updated();
+    void reset();
     void print(int dec = DEFAULTDEC);
 	  void println(int dec = DEFAULTDEC);
 
@@ -23,6 +26,7 @@ class Measurement {
 	  bool _SDOpen;
     float _value;
     float _time;
+    bool _updated;
 };
 
 #endif

@@ -39,5 +39,6 @@ bool HallEffectSensor::on() {
 }
 
 void HallEffectSensor::reset() {
+    _SDOpen = false;
     _touched = false;
 }

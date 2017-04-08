@@ -81,6 +81,16 @@ void DataClass::debugBluetooth(String str) {
   Serial.println(str);
 }
 
+void DataClass::debugBluetooth(int x) {
+  _signalBluetooth();
+  Serial.println(x);
+}
+
+void DataClass::debugBluetooth(float x, int dec) {
+  _signalBluetooth();
+  Serial.println(FloatToString(x, dec));
+}
+
 void DataClass::beginSD(int pin) {
   pinMode(pin, OUTPUT);
   SD.begin(pin);

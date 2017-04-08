@@ -2,53 +2,59 @@
 #include <SPI.h>
 #include <SD.h>
 
-#define TRANSPIN 7
+#define MOTORPIN 7
 #define SWITCHPIN 10
 #define STOPSWITCHPIN 3
 
-SwitchSensor control_switch = Data.switchSensor("Switch_Sensor", SWITCHPIN);
-SwitchSensor stop_switch = Data.switchSensor("Stop_Switch", STOPSWITCHPIN);
+SwitchSensor controlswitch = Data.switchSensor("Switch_Sensor", SWITCHPIN);
+SwitchSensor stopswitch = Data.switchSensor("Stop_Switch", STOPSWITCHPIN);
+
+MotorActuator motor = Data.motorActuator("Motor", MOTORPIN);
 
 void setup() {
-  control_switch.waitForOn();
+  controlswitch.waitForOn();
 
   Data.beginSerial();
   Data.beginTimer();
 
-  pinMode(TRANSPIN, OUTPUT);
-  digitalWrite(TRANSPIN, HIGH);
+  motor.start();
 
-  Data.println("Starting");
+  Data.println("Starting program");
 }
 
 void loop() {
 
-  if (!control_switch.on()) {
-    digitalWrite(TRANSPIN, LOW);
+  if (!controlswitch.on()) {
+    motor.stop();
     restart();
   }
 
-  else if(!stop_switch.on()) {
-    digitalWrite(TRANSPIN, LOW);
+  if (!stopswitch.on()) {
+    motor.stop();
 
     Data.println("Switch was turned off");
     Data.print("Total time was ");
     Data.print(Data.currentTime());
     Data.println(" seconds");
     
-    control_switch.waitForOff();
+    controlswitch.waitForOff();
     restart();
   }
 
 }
 
 void restart() {
-  control_switch.waitForOn();
-
-  Data.println("Restarting");
+  controlswitch.reset();
+  stopswitch.reset();
+  motor.reset();
+  
+  controlswitch.waitForOn();
 
   Data.beginTimer();
-  digitalWrite(TRANSPIN, HIGH);
+  
+  motor.start();
+
+  Data.println("Restarting program");
 }
 
 
