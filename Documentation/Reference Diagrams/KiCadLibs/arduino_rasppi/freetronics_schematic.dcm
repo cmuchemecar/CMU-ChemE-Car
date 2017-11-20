@@ -1,0 +1,138 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 24AA025E48
+D Microchip 24AA025E48
+$ENDCMP
+#
+$CMP 74AHCT1G08
+D Single 2 input positive AND gate
+K AND gate logic 74AHCT 74AH
+$ENDCMP
+#
+$CMP 74LVC1G125
+D Single Bus Buffer Gate with 3-state Output (DBV or DCK package)
+K SN74LVC1G125
+$ENDCMP
+#
+$CMP ARDUINO_DUE_SHIELD
+D Original by nicholasclewis
+K Arduino
+F http://www.thingiverse.com/thing:9630
+$ENDCMP
+#
+$CMP ARDUINO_FOOTPRINT
+D Arduino board device footprint (power inputs). Original by nicholasclewis
+K arduino
+F http://www.thingiverse.com/thing:9630
+$ENDCMP
+#
+$CMP ARDUINO_MEGA_SHIELD
+D Original by nicholasclewis
+K arduino mega
+F http://www.thingiverse.com/thing:9630
+$ENDCMP
+#
+$CMP ARDUINO_SHIELD
+D Arduino shield footprint (power outputs). Original by nicholasclewis
+K arduino
+F http://www.thingiverse.com/thing:9630
+$ENDCMP
+#
+$CMP ATSAM3X8E
+D ATSAM3X8E 32-bit ARM MCU
+F http://www.atmel.com/devices/SAM3X8E.aspx?tab=documents
+$ENDCMP
+#
+$CMP BUZZER
+K buzzer piezo sound
+$ENDCMP
+#
+$CMP CONN_26
+D 26 pin connector
+K CONN
+$ENDCMP
+#
+$CMP JOYSTICK_W_BUTTON
+D Mini Joystick with button, similar to PS2 controller joystick
+K joystick button ps2
+$ENDCMP
+#
+$CMP LM2734Y
+D LM2734 Thin SOT 1A Load Step-Down DC-DC Regulator
+$ENDCMP
+#
+$CMP MAX3002
+D MAX3000E/MAX3001E/MAX3002 QFN package
+K bidirectional level shifter
+$ENDCMP
+#
+$CMP MC74VHCT50A
+D Hex noninverting buffer / CMOS Logic Level Shifter
+$ENDCMP
+#
+$CMP POWERJACK
+D DC Jack
+$ENDCMP
+#
+$CMP R
+D Resistor
+K RESISTOR
+$ENDCMP
+#
+$CMP RASPBERRY_PI_P1
+D Raspberry Pi revision 2 P1 connector pinout
+K raspberry pi
+$ENDCMP
+#
+$CMP RASPBERRY_PI_PLUS_CON
+D Raspberry Pi revision 2 P1 connector pinout
+K raspberry pi
+$ENDCMP
+#
+$CMP R_PACK4
+D Resistor pack (4 resistors)
+K RESISTOR
+$ENDCMP
+#
+$CMP R_PACK8
+D RESISTOR PACK (8 resistors)
+K RESISTOR
+$ENDCMP
+#
+$CMP SMF05C
+D SMF05C TVS 5V
+F http://www.semtech.com/images/datasheet/smf05c.pdf
+$ENDCMP
+#
+$CMP SW_DPST
+K SWITCH
+$ENDCMP
+#
+$CMP SW_SPDT
+K SWITCH BUTTON
+$ENDCMP
+#
+$CMP SW_SPST
+K SWITCH BUTTON
+$ENDCMP
+#
+$CMP TPS54329
+D 3A DC/DC Step Down Buck Converter
+K REGULATOR
+$ENDCMP
+#
+$CMP TPS54331
+D 3A DC/DC step down converter
+$ENDCMP
+#
+$CMP TPS61040
+D DC/DC Step Up Boost Converter
+$ENDCMP
+#
+$CMP W5100
+D Wiznet W5100
+K W5100 Ethernet
+F http://www.wiznet.co.kr/UpLoad_Files/ReferenceFiles/W5100_Datasheet_v1.2.2.pdf
+$ENDCMP
+#
+#End Doc Library
