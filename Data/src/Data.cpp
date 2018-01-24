@@ -117,6 +117,109 @@ String DataClass::_filenameForSD(String name) {
 }
 
 
+/* Data Transfer Functions */
+
+void DataClass::display(Sensor sensor, int timeDec,
+  int valueDec) {
+  Serial.println(DataLine(sensor._name,
+    FloatToString(sensor._timer.duration(), timeDec),
+    FloatToString(sensor.readValue(), valueDec)));
+}
+
+void DataClass::display(Actuator actuator, int timeDec,
+  int valueDec) {
+  Serial.println(DataLine(actuator._name,
+    FloatToString(actuator._time, timeDec),
+    FloatToString(actuator._value, valueDec)));
+}
+
+void DataClass::display(Measurement measurement, int timeDec,
+  int valueDec) {
+  Serial.println(DataLine(measurement._name,
+    FloatToString(measurement._time, timeDec),
+    FloatToString(measurement._value, valueDec)));
+}
+
+void DataClass::sendBluetooth(Sensor sensor, int timeDec, int valueDec) {
+  _signalBluetooth();
+  Serial.println(DataLine(sensor._name,
+    FloatToString(sensor._timer.duration(), timeDec),
+    FloatToString(sensor.readValue(), valueDec)));
+}
+
+void DataClass::sendBluetooth(Actuator actuator, int timeDec,
+  int valueDec) {
+  _signalBluetooth();
+  Serial.println(DataLine(actuator._name,
+    FloatToString(actuator._time, timeDec),
+    FloatToString(actuator._value, valueDec)));
+}
+
+void DataClass::sendBluetooth(Measurement measurement, int timeDec,
+  int valueDec) {
+  _signalBluetooth();
+  Serial.println(DataLine(measurement._name,
+    FloatToString(measurement._time, timeDec),
+    FloatToString(measurement._value, valueDec)));
+}
+
+void DataClass::sendSD(Sensor sensor, int timeDec, int valueDec) {
+  String filename = _filenameForSD(sensor._name);
+  char buf[filename.length()+1];
+  filename.toCharArray(buf, filename.length()+1);
+
+  File dataFile = SD.open(buf, FILE_WRITE);
+
+  if (!sensor._SDOpen) {
+    sensor._SDOpen = true;
+    dataFile.println("---");
+  dataFile.println("Time,Value");
+  }
+
+  dataFile.println(FloatToString(sensor._timer.duration(), timeDec)
+    + "," + FloatToString(sensor.readValue(), valueDec));
+  dataFile.close();
+}
+
+void DataClass::sendSD(Actuator actuator, int timeDec,
+  int valueDec) {
+  String filename = _filenameForSD(actuator._name);
+  char buf[filename.length()+1];
+  filename.toCharArray(buf, filename.length()+1);
+
+  File dataFile = SD.open(buf, FILE_WRITE);
+
+  if (!actuator._SDOpen) {
+    actuator._SDOpen = true;
+    dataFile.println("---");
+  dataFile.println("Time,Value");
+  }
+
+  dataFile.println(FloatToString(actuator._time, timeDec)
+    + "," + FloatToString(actuator._value, valueDec));
+  dataFile.close();
+}
+
+void DataClass::sendSD(Measurement measurement, int timeDec,
+  int valueDec) {
+  String filename = _filenameForSD(measurement._name);
+  char buf[filename.length()+1];
+  filename.toCharArray(buf, filename.length()+1);
+
+  File dataFile = SD.open(buf, FILE_WRITE);
+
+  if (!measurement._SDOpen) {
+    measurement._SDOpen = true;
+    dataFile.println("---");
+    dataFile.println("Time,Value");
+  }
+
+  dataFile.println(FloatToString(measurement._time, timeDec)
+    + "," + FloatToString(measurement._value, valueDec));
+  dataFile.close();
+}
+
+
 /* Utility Wrappers */
 
 String DataClass::floatToString(float x, int dec){
@@ -137,106 +240,6 @@ unsigned long DataClass::secondsToMillis(float s) {
 
 float DataClass::scale(float value, float max) {
   return Scale(value, max);
-}
-
-void DataClass::display(Sensor* sensor, int timeDec,
-  int sensorDec) {
-  Serial.println(DataLine(sensor->_name,
-    FloatToString(sensor->_timer.duration(), timeDec),
-    FloatToString(sensor->readValue(), sensorDec)));
-}
-
-void DataClass::display(Actuator* actuator, int timeDec,
-  int actuatorDec) {
-  Serial.println(DataLine(actuator->_name,
-    FloatToString(actuator->_time, timeDec),
-    FloatToString(actuator->_value, actuatorDec)));
-}
-
-void DataClass::display(Measurement* measurement, int timeDec,
-  int measurementDec) {
-  Serial.println(DataLine(measurement->_name,
-    FloatToString(measurement->_time, timeDec),
-    FloatToString(measurement->_value, measurementDec)));
-}
-
-void DataClass::sendBluetooth(Sensor* sensor, int timeDec, int sensorDec) {
-  _signalBluetooth();
-  Serial.println(DataLine(sensor->_name,
-    FloatToString(sensor->_timer.duration(), timeDec),
-    FloatToString(sensor->readValue(), sensorDec)));
-}
-
-void DataClass::sendBluetooth(Actuator* actuator, int timeDec,
-  int actuatorDec) {
-  _signalBluetooth();
-  Serial.println(DataLine(actuator->_name,
-    FloatToString(actuator->_time, timeDec),
-    FloatToString(actuator->_value, actuatorDec)));
-}
-
-void DataClass::sendBluetooth(Measurement* measurement, int timeDec,
-  int measurementDec) {
-  _signalBluetooth();
-  Serial.println(DataLine(measurement->_name,
-    FloatToString(measurement->_time, timeDec),
-    FloatToString(measurement->_value, measurementDec)));
-}
-
-void DataClass::sendSD(Sensor* sensor, int timeDec, int sensorDec) {
-  String filename = _filenameForSD(sensor->_name);
-  char buf[filename.length()+1];
-  filename.toCharArray(buf, filename.length()+1);
-
-  File sensorFile = SD.open(buf, FILE_WRITE);
-
-  if (!sensor->_SDOpen) {
-    sensor->_SDOpen = true;
-    sensorFile.println("---");
-  sensorFile.println("Time,Value");
-  }
-
-  sensorFile.println(FloatToString(sensor->_timer.duration(), timeDec)
-    + "," + FloatToString(sensor->readValue(), sensorDec));
-  sensorFile.close();
-}
-
-void DataClass::sendSD(Actuator* actuator, int timeDec,
-  int actuatorDec) {
-  String filename = _filenameForSD(actuator->_name);
-  char buf[filename.length()+1];
-  filename.toCharArray(buf, filename.length()+1);
-
-  File actuatorFile = SD.open(buf, FILE_WRITE);
-
-  if (!actuator->_SDOpen) {
-    actuator->_SDOpen = true;
-    actuatorFile.println("---");
-  actuatorFile.println("Time,Value");
-  }
-
-  actuatorFile.println(FloatToString(actuator->_time, timeDec)
-    + "," + FloatToString(actuator->_value, actuatorDec));
-  actuatorFile.close();
-}
-
-void DataClass::sendSD(Measurement* measurement, int timeDec,
-  int measurementDec) {
-  String filename = _filenameForSD(measurement->_name);
-  char buf[filename.length()+1];
-  filename.toCharArray(buf, filename.length()+1);
-
-  File measurementFile = SD.open(buf, FILE_WRITE);
-
-  if (!measurement->_SDOpen) {
-    measurement->_SDOpen = true;
-    measurementFile.println("---");
-    measurementFile.println("Time,Value");
-  }
-
-  measurementFile.println(FloatToString(measurement->_time, timeDec)
-    + "," + FloatToString(measurement->_value, measurementDec));
-  measurementFile.close();
 }
 
 

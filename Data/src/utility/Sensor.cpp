@@ -9,7 +9,7 @@ Sensor::Sensor(String name, byte pin, Timer timer) {
 }
 
 float Sensor::readValue() {
-  return analogRead(_pin);
+  return Scale(analogRead(_pin));
 }
 
 int Sensor::readAnalog() {

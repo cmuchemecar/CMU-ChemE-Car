@@ -52,24 +52,25 @@ class DataClass {
 	void debugBluetooth(float x, int dec = DEFAULTDEC);
 	void beginSD(int pin);
 
-	void display(Sensor* sensor, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void display(Actuator* actuator, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void display(Measurement* measurement, int timeDec = DEFAULTDEC,
-	  int measurementDec = DEFAULTDEC);
-	void sendBluetooth(Sensor* sensor, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void sendBluetooth(Actuator* actuator, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void sendBluetooth(Measurement* measurement, int timeDec = DEFAULTDEC,
-	  int measurementDec = DEFAULTDEC);
-	void sendSD(Sensor* sensor, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void sendSD(Actuator* actuator, int timeDec = DEFAULTDEC,
-	  int sensorDec = DEFAULTDEC);
-	void sendSD(Measurement* measurement, int timeDec = DEFAULTDEC,
-	  int measurementDec = DEFAULTDEC);
+	/* Data Transfer Functions */
+	void display(Sensor sensor, int timeDec = DEFAULTDEC,
+	  int valueDec = DEFAULTDEC);
+	void display(Actuator actuator, int timeDec = DEFAULTDEC,
+	  int valueDec = DEFAULTDEC);
+	void display(Measurement measurement, int timeDec = DEFAULTDEC,
+	  int valueDec = DEFAULTDEC);
+	void sendBluetooth(Sensor sensor, int timeDec = DEFAULTDEC,
+	  int valueDec = DEFAULTDEC);
+	void sendBluetooth(Actuator actuator, int timeDec = DEFAULTDEC,
+	  int valueDec = DEFAULTDEC);
+	void sendBluetooth(Measurement measurement, int timeDec = DEFAULTDEC,
+	  int valueDec = DEFAULTDEC);
+	void sendSD(Sensor sensor, int timeDec = DEFAULTDEC,
+	  int valueDec = DEFAULTDEC);
+	void sendSD(Actuator actuator, int timeDec = DEFAULTDEC,
+	  int valueDec = DEFAULTDEC);
+	void sendSD(Measurement measurement, int timeDec = DEFAULTDEC,
+	  int valueDec = DEFAULTDEC);
 
 
 	/* Utility Wrappers */
@@ -103,7 +104,7 @@ class DataClass {
     	float R1, float R2);
 
 	/** TemperatureSensor **/
-    TemperatureSensor temperatureSensor(String name, byte pin, int mode);
+    TemperatureSensor temperatureSensor(String name, byte pin, int mode = MODE_C);
     TemperatureSensor temperatureSensor(String name, byte pin, Timer time,
     	int mode);
 

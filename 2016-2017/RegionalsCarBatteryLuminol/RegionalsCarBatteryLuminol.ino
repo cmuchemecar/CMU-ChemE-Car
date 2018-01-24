@@ -90,8 +90,8 @@ void loop() {
     restart();
   }
 
-  Data.display(&photoraw);
-  Data.display(&photosensor);
+  Data.display(photoraw);
+  Data.display(photosensor);
 
   Data.sendBluetooth(&photoraw);
   Data.sendBluetooth(&photosensor);
