@@ -2,9 +2,8 @@
 #include <SD.h>
 #include <SPI.h>
 
-#define SENSEPIN A0
 
-TemperatureSensor temp = Data.temperatureSensor("Temp", SENSEPIN);
+INA219CurrentSensor current = Data.ina219CurrentSensor("Current");
 
 void setup() {
   Data.beginSerial();
@@ -12,6 +11,7 @@ void setup() {
 }
 
 void loop() {
-  Data.display(&temp);
+  Data.display(&current);
+  
   delay(1234);
 }

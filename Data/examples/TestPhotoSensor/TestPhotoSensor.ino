@@ -2,9 +2,9 @@
 #include <SD.h>
 #include <SPI.h>
 
-#define SENSEPIN A0
+#define PHOTOPIN A0
 
-TemperatureSensor temp = Data.temperatureSensor("Temp", SENSEPIN);
+PhotoSensor photo = Data.photoSensor("Photo", PHOTOPIN, 660000);
 
 void setup() {
   Data.beginSerial();
@@ -12,6 +12,7 @@ void setup() {
 }
 
 void loop() {
-  Data.display(&temp);
+  Data.display(&photo);
+  
   delay(1234);
 }

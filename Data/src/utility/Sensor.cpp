@@ -5,7 +5,9 @@ Sensor::Sensor(String name, byte pin, Timer timer) {
   this->_pin = pin;
   this->_timer = timer;
   this->_SDOpen = false;
-  pinMode(_pin, INPUT);
+  if (pin >= 0) {
+    pinMode(_pin, INPUT);
+  }
 }
 
 float Sensor::readValue() {

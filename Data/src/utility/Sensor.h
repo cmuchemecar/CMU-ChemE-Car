@@ -15,6 +15,7 @@ class Sensor {
   friend class WheelSensor;
   friend class PhotoSensor;
   friend class SwitchSensor;
+  friend class INA219CurrentSensor;
 
   public:
     Sensor(String name, byte pin, Timer timer);

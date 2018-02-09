@@ -21,6 +21,7 @@
 #include "utility/WheelSensor.h"
 #include "utility/PhotoSensor.h"
 #include "utility/SwitchSensor.h"
+//#include "utility/INA219CurrentSensor.h"
 #include "utility/Actuator.h"
 #include "utility/MotorActuator.h"
 
@@ -53,23 +54,23 @@ class DataClass {
 	void beginSD(int pin);
 
 	/* Data Transfer Functions */
-	void display(Sensor sensor, int timeDec = DEFAULTDEC,
+	void display(Sensor* sensor, int timeDec = DEFAULTDEC,
 	  int valueDec = DEFAULTDEC);
-	void display(Actuator actuator, int timeDec = DEFAULTDEC,
+	void display(Actuator* actuator, int timeDec = DEFAULTDEC,
 	  int valueDec = DEFAULTDEC);
-	void display(Measurement measurement, int timeDec = DEFAULTDEC,
+	void display(Measurement* measurement, int timeDec = DEFAULTDEC,
 	  int valueDec = DEFAULTDEC);
-	void sendBluetooth(Sensor sensor, int timeDec = DEFAULTDEC,
+	void sendBluetooth(Sensor* sensor, int timeDec = DEFAULTDEC,
 	  int valueDec = DEFAULTDEC);
-	void sendBluetooth(Actuator actuator, int timeDec = DEFAULTDEC,
+	void sendBluetooth(Actuator* actuator, int timeDec = DEFAULTDEC,
 	  int valueDec = DEFAULTDEC);
-	void sendBluetooth(Measurement measurement, int timeDec = DEFAULTDEC,
+	void sendBluetooth(Measurement* measurement, int timeDec = DEFAULTDEC,
 	  int valueDec = DEFAULTDEC);
-	void sendSD(Sensor sensor, int timeDec = DEFAULTDEC,
+	void sendSD(Sensor* sensor, int timeDec = DEFAULTDEC,
 	  int valueDec = DEFAULTDEC);
-	void sendSD(Actuator actuator, int timeDec = DEFAULTDEC,
+	void sendSD(Actuator* actuator, int timeDec = DEFAULTDEC,
 	  int valueDec = DEFAULTDEC);
-	void sendSD(Measurement measurement, int timeDec = DEFAULTDEC,
+	void sendSD(Measurement* measurement, int timeDec = DEFAULTDEC,
 	  int valueDec = DEFAULTDEC);
 
 
@@ -106,7 +107,7 @@ class DataClass {
 	/** TemperatureSensor **/
     TemperatureSensor temperatureSensor(String name, byte pin, int mode = MODE_C);
     TemperatureSensor temperatureSensor(String name, byte pin, Timer time,
-    	int mode);
+    	int mode = MODE_C);
 
     /** HallEffectSensor **/
     HallEffectSensor hallEffectSensor(String name, byte pin);
@@ -126,6 +127,9 @@ class DataClass {
 	SwitchSensor switchSensor(String name, byte pin);
 	SwitchSensor switchSensor(String name, byte pin, Timer time);
 
+    /** INA219CurrentSensor **/
+    //INA219CurrentSensor ina219CurrentSensor(String name);
+    //INA219CurrentSensor ina219CurrentSensor(String name, Timer time);
 
 
 	/* Actuators */
