@@ -1,7 +1,4 @@
 #include <Data.h>
-#include <SD.h>
-#include <SPI.h>
-
 
 INA219CurrentSensor current = Data.ina219CurrentSensor("Current");
 

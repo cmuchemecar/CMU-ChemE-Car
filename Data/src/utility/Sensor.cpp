@@ -5,7 +5,7 @@ Sensor::Sensor(String name, byte pin, Timer timer) {
   this->_pin = pin;
   this->_timer = timer;
   this->_SDOpen = false;
-  if (pin >= 0) {
+  if (pin < 100) {
     pinMode(_pin, INPUT);
   }
 }

@@ -9,7 +9,7 @@
 
 #include <Arduino.h>
 #include <SD.h>
-#include <SPI.h>
+//#include <SPI.h>
 #include "utility/Utility.h"
 #include "utility/Timer.h"
 #include "utility/Series.h"
@@ -21,7 +21,7 @@
 #include "utility/WheelSensor.h"
 #include "utility/PhotoSensor.h"
 #include "utility/SwitchSensor.h"
-//#include "utility/INA219CurrentSensor.h"
+#include "utility/INA219CurrentSensor.h"
 #include "utility/Actuator.h"
 #include "utility/MotorActuator.h"
 
@@ -128,8 +128,8 @@ class DataClass {
 	SwitchSensor switchSensor(String name, byte pin, Timer time);
 
     /** INA219CurrentSensor **/
-    //INA219CurrentSensor ina219CurrentSensor(String name);
-    //INA219CurrentSensor ina219CurrentSensor(String name, Timer time);
+    INA219CurrentSensor ina219CurrentSensor(String name);
+    INA219CurrentSensor ina219CurrentSensor(String name, Timer time);
 
 
 	/* Actuators */

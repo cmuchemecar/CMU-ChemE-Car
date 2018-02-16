@@ -343,15 +343,15 @@ SwitchSensor DataClass::switchSensor(
 }
 
 /** INA219CurrentSensor **/
-//INA219CurrentSensor DataClass::ina219CurrentSensor(
-//  String name) {
-//  return INA219CurrentSensor(name, _timer);
-//}
+INA219CurrentSensor DataClass::ina219CurrentSensor(
+  String name) {
+  return INA219CurrentSensor(name, _timer);
+}
 
-//INA219CurrentSensor DataClass::ina219CurrentSensor(
-//  String name, Timer time) {
-//  return INA219CurrentSensor(name, time);
-//}
+INA219CurrentSensor DataClass::ina219CurrentSensor(
+  String name, Timer time) {
+  return INA219CurrentSensor(name, time);
+}
 
 /* Actuator */
 
