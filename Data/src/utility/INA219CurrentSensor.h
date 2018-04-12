@@ -11,6 +11,7 @@ class INA219CurrentSensor : public Sensor {
     public:
         INA219CurrentSensor(String name, Timer timer);
         float readValue();
+        void resetTimer();
 };
 
 #endif

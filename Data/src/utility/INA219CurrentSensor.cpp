@@ -12,3 +12,7 @@ float INA219CurrentSensor::readValue() {
 	_ina219.begin();
 	return _ina219.getCurrent_mA();
 }
+
+void INA219CurrentSensor::resetTimer() {
+    this->_timer.reset();
+}

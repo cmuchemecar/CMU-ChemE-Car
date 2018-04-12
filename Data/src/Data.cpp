@@ -163,7 +163,16 @@ void DataClass::sendBluetooth(Measurement* measurement, int timeDec,
     FloatToString(measurement->_value, valueDec)));
 }
 
-void DataClass::sendSD(Sensor* sensor, int timeDec, int valueDec) {
+/*
+* Set newTrial to a nonzero value if the data being recorded is
+* for a new trial.
+* trialNum represents the number of the trial whose data is being
+* written to the SD card.
+*/
+
+void DataClass::sendSD(Sensor* sensor, int newTrial, int trialNum, 
+int timeDec, int valueDec) 
+{
   String filename = _filenameForSD(sensor->_name);
   char buf[filename.length()+1];
   filename.toCharArray(buf, filename.length()+1);
@@ -172,8 +181,11 @@ void DataClass::sendSD(Sensor* sensor, int timeDec, int valueDec) {
 
   if (!sensor->_SDOpen) {
     sensor->_SDOpen = true;
+  }
+  if (newTrial) {
     dataFile.println("---");
-  dataFile.println("Time,Value");
+    dataFile.println("Trial " + String(trialNum));
+    dataFile.println("Time,Value");
   }
 
   dataFile.println(FloatToString(sensor->_timer.duration(), timeDec)

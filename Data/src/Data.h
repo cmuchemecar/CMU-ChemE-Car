@@ -66,8 +66,8 @@ class DataClass {
 	  int valueDec = DEFAULTDEC);
 	void sendBluetooth(Measurement* measurement, int timeDec = DEFAULTDEC,
 	  int valueDec = DEFAULTDEC);
-	void sendSD(Sensor* sensor, int timeDec = DEFAULTDEC,
-	  int valueDec = DEFAULTDEC);
+	void sendSD(Sensor* sensor, int newTrial, int trialNum, 
+          int timeDec = DEFAULTDEC, int valueDec = DEFAULTDEC);
 	void sendSD(Actuator* actuator, int timeDec = DEFAULTDEC,
 	  int valueDec = DEFAULTDEC);
 	void sendSD(Measurement* measurement, int timeDec = DEFAULTDEC,

@@ -6,6 +6,10 @@
 #define SDPIN 10
 #define SWITCHPIN 9
 
+//Globals
+static int trial_counter = 0;
+static int NEW_TRIAL = 0;
+
 //Function prototypes
 void restart();
 
@@ -22,13 +26,18 @@ void setup() {
   Data.println("The switch has been turned on");
   Data.println("Starting control loop");
   Data.println("Finished setup");
+  trial_counter += 1;
+  NEW_TRIAL = 1;
 }
 
 void loop() {
   if (switchSensor.on()) {
     Data.println("Switch on");
     Data.display(&current);
-    Data.sendSD(&current);
+    Data.sendSD(&current, NEW_TRIAL, trial_counter);
+    if (NEW_TRIAL) {
+      NEW_TRIAL = 0;
+    }
   } else {
     Data.display(&current);
     Data.println("Switch off");
@@ -41,7 +50,8 @@ void restart() {
   switchSensor.waitForOn();
   Data.println("The switch has been turned on");
   Data.println("Returning to control loop");
-  
-  Data.beginTimer();
+  current.resetTimer();
   Data.beginSD(SDPIN);
+  trial_counter += 1;
+  NEW_TRIAL = 1;
 }
